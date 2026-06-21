@@ -30,6 +30,7 @@
   <button class="tab-btn" data-tab="rooster">Weekrooster</button>
   <button class="tab-btn" data-tab="teams">Teams</button>
   <button class="tab-btn" data-tab="criteria">Criteria Check</button>
+  <button class="tab-btn" data-tab="logica">Logica</button>
 </nav>
 
 <main>
@@ -271,6 +272,129 @@
     </table>
     <p id="criteria-ok" class="ok-msg" style="display:none">✓ Alle sessies vallen binnen het aanbevolen tijdvenster.</p>
   </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: LOGICA                                                  -->
+<!-- ============================================================ -->
+<section id="tab-logica" class="tab-content">
+
+  <div class="logica-grid">
+
+    <!-- Planningsvolgorde -->
+    <div class="card logica-card">
+      <h3 class="logica-card-title">Planningsvolgorde</h3>
+      <p class="logica-intro">Teams worden in deze vaste volgorde ingepland. Wie eerder aan de beurt is, krijgt de betere tijdslots.</p>
+      <ol class="prio-list">
+        <li><span class="prio-badge" style="background:#F6C90E;color:#333">1</span>
+          <strong>Vast tijdstip</strong>
+          <span class="prio-desc">Direct op exacte dag &amp; tijd — geen scoring</span></li>
+        <li><span class="prio-badge" style="background:#8E44AD;color:#fff">2</span>
+          <strong>Bijzonder</strong>
+          <span class="prio-desc">Keeperstraining, G-teams, 4SKILLS</span></li>
+        <li><span class="prio-badge" style="background:#2980B9;color:#fff">3</span>
+          <strong>Onderbouw</strong>
+          <span class="prio-desc">JO7 – JO12</span></li>
+        <li><span class="prio-badge" style="background:#27AE60;color:#fff">4</span>
+          <strong>Middenbouw</strong>
+          <span class="prio-desc">JO13 – JO15, MO13, MO15</span></li>
+        <li><span class="prio-badge" style="background:#E67E22;color:#fff">5</span>
+          <strong>Senioren-selectie</strong>
+          <span class="prio-desc">Selectieteams (Heren/Dames -1 en -2)</span></li>
+        <li><span class="prio-badge" style="background:#D4AC0D;color:#333">6</span>
+          <strong>Bovenbouw</strong>
+          <span class="prio-desc">JO17, JO19, MO17, MO20</span></li>
+        <li><span class="prio-badge" style="background:#C0392B;color:#fff">7</span>
+          <strong>Senioren</strong>
+          <span class="prio-desc">Heren, Dames, Vaders (niet-selectie)</span></li>
+        <li><span class="prio-badge" style="background:#95A5A6;color:#fff">8</span>
+          <strong>Schaduwtraining</strong>
+          <span class="prio-desc">Koppelt aan tijdslot van het opgegeven hoofdteam</span></li>
+      </ol>
+    </div>
+
+    <div class="logica-right-col">
+
+      <!-- Scorefactoren -->
+      <div class="card logica-card">
+        <h3 class="logica-card-title">Hoe kiest het algoritme een tijdslot?</h3>
+        <p class="logica-intro">Per categorie worden alle mogelijke tijdslots gescoord. De <em>laagste score</em> wint.</p>
+        <ul class="score-list">
+          <li>
+            <span class="score-icon" style="color:#C62828">↕</span>
+            <div><strong>Buiten tijdvenster</strong> — +10 strafpunten per uur afwijking van het aanbevolen venster (bijv. onderbouw 16:00–18:30)</div>
+          </li>
+          <li>
+            <span class="score-icon" style="color:#1565C0">⚖</span>
+            <div><strong>Dagbalans</strong> — +0,5 per veldgebruik-eenheid al gepland op die dag → druk op gelijke spreiding over MA–VR</div>
+          </li>
+          <li>
+            <span class="score-icon" style="color:#2E7D32">↑</span>
+            <div><strong>Lichte vroeg-voorkeur</strong> — +0,15 per uur later in het venster → bovenbouw begint zo rond 19:30, zodat 21:00+ vrij blijft voor senioren</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Veldregels -->
+      <div class="card logica-card">
+        <h3 class="logica-card-title">Veldregels</h3>
+        <ul class="veld-rules">
+          <li><span class="rule-bullet">▸</span> Max <strong>1,0 veldgebruik</strong> per veld per tijdslot van 15 min</li>
+          <li><span class="rule-bullet">▸</span> <strong>Subvelden</strong> (A/B/C/D) worden automatisch toegewezen na de planning</li>
+          <li><span class="rule-bullet">▸</span> <strong>Veld 2</strong> — alleen voor onderbouw, sessie eindigt vóór 19:00</li>
+          <li><span class="rule-bullet">▸</span> <strong>2e sessie</strong> JO17/JO19 niet-selectie: kwart veld (0,25 vg) bij capaciteitstekort</li>
+          <li><span class="rule-bullet">▸</span> <strong>2e sessie senioren</strong>: kwart veld (0,25 vg), gepland ná alle andere teams</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bijzonderheden-codes -->
+  <div class="card logica-card" style="margin-top:0">
+    <h3 class="logica-card-title">Bijzonderheden-codes (DATA-blad in Excel)</h3>
+    <p class="logica-intro">Via het veld <em>Bijzonderheden</em> in het DATA-blad kun je per team de standaard planningslogica overschrijven.</p>
+    <table class="data-table logica-table">
+      <thead>
+        <tr><th>Code</th><th>Voorbeeld</th><th>Effect</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>dag:XX</code></td><td><code>dag:di</code></td><td>Voorkeur voor deze dag (MA/DI/WO/DO/VR)</td></tr>
+        <tr><td><code>veld:N</code></td><td><code>veld:6</code></td><td>Voorkeur voor Veld N</td></tr>
+        <tr><td><code>duur:N</code></td><td><code>duur:90</code></td><td>Sessieduur overschrijven (minuten)</td></tr>
+        <tr><td><code>gebruik:X</code></td><td><code>gebruik:0.25</code></td><td>Veldgebruik overschrijven (0.25 / 0.5 / 1.0)</td></tr>
+        <tr><td><code>vast tijdstip</code></td><td><code>vast tijdstip vr 19:00</code></td><td>Hoogste prioriteit — direct op exacte dag &amp; tijd ingepland</td></tr>
+        <tr><td><code>bi-wekelijks</code></td><td><code>bi-wekelijks</code></td><td>Slechts 1 sessie per 2 weken (in plaats van categorie-standaard)</td></tr>
+        <tr><td><code>schaduwtraining</code></td><td><code>schaduwtraining Heren-1</code></td><td>Kopieert tijdslot van het genoemde hoofdteam exact</td></tr>
+        <tr><td><code>kwart</code></td><td><code>kwart veld</code></td><td>Veldgebruik 0,25 (kwart veld)</td></tr>
+        <tr><td><code>half</code></td><td><code>half veld</code></td><td>Veldgebruik 0,5 (half veld)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Categorieregels (live) -->
+  <div class="card logica-card" style="margin-top:0">
+    <h3 class="logica-card-title">Categorieregels <span class="logica-live-badge">live</span></h3>
+    <p class="logica-intro">Geladen uit het LOGICA-blad van het Excel-bestand. Dit bepaalt de standaard duur, veldgebruik en tijdvenster per categorie.</p>
+    <div id="logica-cat-wrap">
+      <table class="data-table logica-table" id="logica-cat-table">
+        <thead>
+          <tr>
+            <th>Categorie</th>
+            <th>Prioriteit</th>
+            <th>Sessies/week</th>
+            <th>Duur (min)</th>
+            <th>Veldgebruik</th>
+            <th>Tijdvenster</th>
+          </tr>
+        </thead>
+        <tbody id="logica-cat-tbody">
+          <tr><td colspan="6" class="empty-state">Laden…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </section>
 
 </main>

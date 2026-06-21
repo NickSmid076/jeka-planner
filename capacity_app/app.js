@@ -1316,6 +1316,51 @@ async function toggleTeam(checkbox) {
   }
 }
 
+// ── Logica tab ────────────────────────────────────────────────────
+const PRIO_LABELS = {
+  bijzonder:          'Bijzonder',
+  onderbouw:          'Onderbouw',
+  middenbouw:         'Middenbouw',
+  'senioren-selectie':'Senioren-selectie',
+  bovenbouw:          'Bovenbouw',
+  senioren:           'Senioren',
+};
+const PRIO_CHIP_COLORS = {
+  bijzonder:          '#8E44AD',
+  onderbouw:          '#2980B9',
+  middenbouw:         '#27AE60',
+  'senioren-selectie':'#E67E22',
+  bovenbouw:          '#D4AC0D',
+  senioren:           '#C0392B',
+};
+
+function renderLogicaTab(catRegels) {
+  const tbody = document.getElementById('logica-cat-tbody');
+  if (!tbody) return;
+  if (!catRegels || !Object.keys(catRegels).length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Geen categorieregels beschikbaar (vereist roster_export.json met categorie_regels)</td></tr>';
+    return;
+  }
+  const prio_volgorde = ['bijzonder','onderbouw','middenbouw','senioren-selectie','bovenbouw','senioren'];
+  const gesorteerd = Object.entries(catRegels).sort(([,a],[,b]) => {
+    const ai = prio_volgorde.indexOf(a.prioriteit ?? '');
+    const bi = prio_volgorde.indexOf(b.prioriteit ?? '');
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+  tbody.innerHTML = gesorteerd.map(([cat, r]) => {
+    const kleur = PRIO_CHIP_COLORS[r.prioriteit] || '#777';
+    const label = PRIO_LABELS[r.prioriteit] || r.prioriteit || '—';
+    return `<tr>
+      <td><strong>${escHtml(cat)}</strong></td>
+      <td><span class="prio-chip" style="background:${kleur}">${escHtml(label)}</span></td>
+      <td style="text-align:center">${r.sessies ?? '—'}</td>
+      <td style="text-align:center">${r.duur_min ?? '—'} min</td>
+      <td style="text-align:center">${r.veldgebruik != null ? r.veldgebruik.toFixed(2) : '—'}</td>
+      <td style="text-align:center">${escHtml(r.tijd_van || '16:00')} – ${escHtml(r.tijd_tot || '22:30')}</td>
+    </tr>`;
+  }).join('');
+}
+
 // ── Load and render all data ──────────────────────────────────────
 async function loadAndRender() {
   try {
@@ -1354,6 +1399,7 @@ async function loadAndRender() {
     initVrijeSlotsTab(data, grid);
     renderCriteriaCheck(data);
     initTeamsTab(data.sessies || []);
+    renderLogicaTab(data.categorie_regels || {});
 
     return { data, grid };
   } catch (e) {
