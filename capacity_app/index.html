@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JEKA Capaciteitsmanager v2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">
+      <span class="logo">⚽</span>
+      <span>RKVV JEKA — Capaciteitsmanager v2</span>
+    </div>
+    <div class="header-actions">
+      <span id="last-update" class="update-time"></span>
+      <button id="btn-refresh" class="btn-refresh">↻ Herplan</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+  <button class="tab-btn" data-tab="heatmap">Capaciteitskaart</button>
+  <button class="tab-btn" data-tab="niet-ingepland">Niet Ingepland <span id="badge-niet" class="badge"></span></button>
+  <button class="tab-btn" data-tab="categorie">Per Categorie</button>
+  <button class="tab-btn" data-tab="vrij">Vrije Slots</button>
+  <button class="tab-btn" data-tab="rooster">Weekrooster</button>
+  <button class="tab-btn" data-tab="teams">Teams</button>
+  <button class="tab-btn" data-tab="criteria">Criteria Check</button>
+</nav>
+
+<main>
+
+<!-- ============================================================ -->
+<!-- TAB: DASHBOARD                                               -->
+<!-- ============================================================ -->
+<section id="tab-dashboard" class="tab-content active">
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Sessies per categorie</h3>
+      <div id="cat-table-wrap">
+        <table id="cat-table" class="data-table">
+          <thead>
+            <tr>
+              <th>Categorie</th>
+              <th>Teams</th>
+              <th>Sessies</th>
+              <th>Niet ingepland</th>
+              <th>Bezetting</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Spreiding per dag</h3>
+      <div id="dag-bars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: CAPACITEITSKAART (HEATMAP)                             -->
+<!-- ============================================================ -->
+<section id="tab-heatmap" class="tab-content">
+  <div class="card">
+    <div class="heatmap-controls">
+      <label>Veld:
+        <select id="heatmap-veld-select">
+          <option value="all">Alle velden (gemiddeld)</option>
+          <option value="Veld 6">Veld 6</option>
+          <option value="Veld 7">Veld 7</option>
+          <option value="Veld 1">Veld 1</option>
+          <option value="Veld 2">Veld 2</option>
+        </select>
+      </label>
+      <div class="legend">
+        <span class="leg-item"><span class="leg-box" style="background:#e8f8e8"></span>Vrij</span>
+        <span class="leg-item"><span class="leg-box" style="background:#fff3cd"></span>50-79%</span>
+        <span class="leg-item"><span class="leg-box" style="background:#fcd199"></span>80-99%</span>
+        <span class="leg-item"><span class="leg-box" style="background:#f8d7da"></span>Vol</span>
+      </div>
+    </div>
+    <div class="heatmap-scroll">
+      <table id="heatmap-table" class="heatmap"></table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: NIET INGEPLAND                                          -->
+<!-- ============================================================ -->
+<section id="tab-niet-ingepland" class="tab-content">
+  <div class="section-intro" id="niet-ingepland-intro"></div>
+  <div id="niet-ingepland-list"></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: PER CATEGORIE                                           -->
+<!-- ============================================================ -->
+<section id="tab-categorie" class="tab-content">
+  <div class="card">
+    <div class="cat-filter">
+      <label>Categorie:
+        <select id="cat-select"></select>
+      </label>
+      <span id="cat-info" class="cat-info-badge"></span>
+    </div>
+    <div id="cat-sessions-wrap">
+      <table id="cat-sessions" class="data-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Dag</th>
+            <th>Start</th>
+            <th>Eind</th>
+            <th>Veld</th>
+            <th>SubVeld</th>
+            <th>In venster?</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: VRIJE SLOTS                                             -->
+<!-- ============================================================ -->
+<section id="tab-vrij" class="tab-content">
+  <div class="card">
+    <div class="filter-row">
+      <label>Categorie filter (tijdvenster):
+        <select id="vrij-cat-select">
+          <option value="">Alle tijden</option>
+        </select>
+      </label>
+      <label>Veld:
+        <select id="vrij-veld-select">
+          <option value="">Alle velden</option>
+          <option value="Veld 6">Veld 6</option>
+          <option value="Veld 7">Veld 7</option>
+          <option value="Veld 1">Veld 1</option>
+          <option value="Veld 2">Veld 2</option>
+        </select>
+      </label>
+      <label>Dag:
+        <select id="vrij-dag-select">
+          <option value="">Alle dagen</option>
+          <option value="MA">Maandag</option>
+          <option value="DI">Dinsdag</option>
+          <option value="WO">Woensdag</option>
+          <option value="DO">Donderdag</option>
+          <option value="VR">Vrijdag</option>
+        </select>
+      </label>
+    </div>
+    <div id="vrij-tabel-wrap">
+      <table id="vrij-tabel" class="data-table">
+        <thead>
+          <tr>
+            <th>Dag</th>
+            <th>Veld</th>
+            <th>Tijdslot</th>
+            <th>Beschikbare capaciteit</th>
+            <th>Ruimte voor</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: WEEKROOSTER                                             -->
+<!-- ============================================================ -->
+<section id="tab-rooster" class="tab-content">
+  <div class="card rooster-card">
+    <div class="rooster-controls">
+      <div class="veld-toggle" id="rooster-veld-toggle">
+        <button class="veld-btn" data-veld="Veld 6">Veld 6</button>
+        <button class="veld-btn" data-veld="Veld 7">Veld 7</button>
+        <button class="veld-btn" data-veld="Veld 1">Veld 1</button>
+        <button class="veld-btn" data-veld="Veld 2">Veld 2</button>
+        <button class="veld-btn" data-veld="">Alle velden</button>
+      </div>
+      <div class="rooster-legenda">
+        <span class="leg-item"><span class="leg-box" style="background:#AED6F1"></span>Onderbouw</span>
+        <span class="leg-item"><span class="leg-box" style="background:#A9DFBF"></span>Middenbouw</span>
+        <span class="leg-item"><span class="leg-box" style="background:#F9E79F"></span>Bovenbouw</span>
+        <span class="leg-item"><span class="leg-box" style="background:#F1948A"></span>Senioren</span>
+        <span class="leg-item"><span class="leg-box" style="background:#D7BDE2"></span>Bijzonder</span>
+      </div>
+    </div>
+    <div class="rooster-scroll">
+      <div class="rooster-outer" id="rooster-outer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: TEAMS                                                   -->
+<!-- ============================================================ -->
+<section id="tab-teams" class="tab-content">
+  <div class="card">
+    <div class="filter-row">
+      <label>Categorie:
+        <select id="teams-cat-select">
+          <option value="">Alle categorieën</option>
+        </select>
+      </label>
+      <label>Status:
+        <select id="teams-status-select">
+          <option value="">Alles</option>
+          <option value="actief">Actief</option>
+          <option value="inactief">Inactief</option>
+        </select>
+      </label>
+      <input id="teams-zoek" type="search" placeholder="Zoek team…" style="padding:5px 10px;border:1px solid #e0e0e0;border-radius:4px;font-size:13px">
+    </div>
+    <div id="teams-herplan-banner" class="herplan-banner" style="display:none">
+      Teamstatus gewijzigd — klik <strong>Herplan</strong> om het rooster bij te werken.
+    </div>
+    <div id="teams-tabel-wrap">
+      <table id="teams-tabel" class="data-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Categorie</th>
+            <th>Training</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB: CRITERIA CHECK                                          -->
+<!-- ============================================================ -->
+<section id="tab-criteria" class="tab-content">
+  <div class="section-intro">
+    <p>Sessies die buiten het aanbevolen tijdvenster van hun categorie vallen.</p>
+  </div>
+  <div class="card">
+    <table id="criteria-tabel" class="data-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Categorie</th>
+          <th>Sessie</th>
+          <th>Tijdvenster</th>
+          <th>Afwijking</th>
+          <th>Prioriteit</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="criteria-ok" class="ok-msg" style="display:none">✓ Alle sessies vallen binnen het aanbevolen tijdvenster.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

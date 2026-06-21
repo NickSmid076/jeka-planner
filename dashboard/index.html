@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JEKA Veldbezettingsdashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span class="logo">RKVV JEKA</span>
+    <span class="header-title">Veldbezettingsdashboard</span>
+  </div>
+  <div class="header-right">
+    <span id="generated-at" class="meta-text">—</span>
+    <button class="btn-refresh" id="btn-refresh" title="Rooster opnieuw genereren">
+      ↻ Genereer rooster
+    </button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="weekoverzicht">📅 Weekoverzicht</button>
+  <button class="tab" data-tab="veldbeheer">🔧 Veldbeheer</button>
+  <button class="tab" data-tab="capaciteit">📊 Capaciteit</button>
+  <button class="tab" data-tab="scenarios">🔮 Scenario's</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 1 — WEEKOVERZICHT
+════════════════════════════════════════════════════════════ -->
+<div id="tab-weekoverzicht" class="tab-content active">
+
+  <div id="kpi-bar">
+    <div class="kpi-card" id="kpi-bezetting">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Bezettingsgraad</div>
+    </div>
+    <div class="kpi-card" id="kpi-ingepland">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Ingeplande sessies</div>
+    </div>
+    <div class="kpi-card" id="kpi-niet-ingepland">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Niet ingepland</div>
+    </div>
+    <div class="kpi-card" id="kpi-piekdag">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Piekdag</div>
+    </div>
+    <div class="kpi-card" id="kpi-capaciteit">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Restcapaciteit (veld-uur)</div>
+    </div>
+  </div>
+
+  <div id="conflicts-banner" class="hidden">
+    <strong>⚠ Capaciteitsconflicten gedetecteerd:</strong>
+    <span id="conflicts-count">0</span> slots overschreden.
+    <button id="btn-show-conflicts">Toon details</button>
+  </div>
+
+  <div id="conflicts-panel" class="hidden">
+    <h4>Conflicten</h4>
+    <ul id="conflicts-list"></ul>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="dot" style="background:#AED6F1"></span>Onderbouw</span>
+    <span class="legend-item"><span class="dot" style="background:#A9DFBF"></span>Middenbouw</span>
+    <span class="legend-item"><span class="dot" style="background:#FAD7A0"></span>Bovenbouw</span>
+    <span class="legend-item"><span class="dot" style="background:#F1948A"></span>Senioren</span>
+    <span class="legend-item"><span class="dot" style="background:#D7BDE2"></span>Bijzonder</span>
+    <span class="legend-item"><span class="dot conflict-dot"></span>Conflict</span>
+  </div>
+
+  <div id="timeline-scroll">
+    <div id="timeline-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 2 — VELDBEHEER
+════════════════════════════════════════════════════════════ -->
+<div id="tab-veldbeheer" class="tab-content hidden">
+  <div class="section-header">
+    <h2>Veldbeschikbaarheidsbeheer</h2>
+    <p>Markeer velden als onbeschikbaar. Het systeem berekent hoeveel sessies worden geraakt.</p>
+  </div>
+
+  <div id="avail-impact" class="impact-bar hidden">
+    <strong>Impact:</strong> <span id="avail-impact-text"></span>
+  </div>
+
+  <div id="avail-grid">
+    <!-- Rendered by JS -->
+  </div>
+
+  <div class="avail-actions">
+    <button class="btn-primary" id="btn-save-avail">💾 Opslaan</button>
+    <button class="btn-secondary" id="btn-reset-avail">Alles beschikbaar</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 3 — CAPACITEIT
+════════════════════════════════════════════════════════════ -->
+<div id="tab-capaciteit" class="tab-content hidden">
+  <div class="section-header">
+    <h2>Capaciteitsoverzicht</h2>
+  </div>
+
+  <div class="cap-overview-cards" id="cap-cards">
+    <!-- Rendered by JS -->
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-box">
+      <h3>Sessies per categorie</h3>
+      <canvas id="chart-categorie" width="320" height="240"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Bezetting per dag</h3>
+      <canvas id="chart-dag" width="320" height="240"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Bezetting per tijdblok</h3>
+      <canvas id="chart-tijd" width="320" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="latent-section">
+    <h3>Niet-ingepland teams (latente vraag)</h3>
+    <p class="meta-text">Deze teams konden niet worden ingepland — bewijs voor capaciteitsknelpunten.</p>
+    <table id="tbl-niet-ingepland" class="data-table">
+      <thead><tr><th>Team</th><th>Reden</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 4 — SCENARIO'S
+════════════════════════════════════════════════════════════ -->
+<div id="tab-scenarios" class="tab-content hidden">
+
+  <div class="scenario-tabs">
+    <button class="stab active" data-stab="nieuwe-teams">➕ Nieuwe teams</button>
+    <button class="stab" data-stab="nieuw-veld">🏟 Nieuw veld</button>
+    <button class="stab" data-stab="vergelijking">⚖ Vergelijking</button>
+    <button class="stab" data-stab="gevoeligheidsanalyse">📊 Gevoeligheid</button>
+    <button class="stab" data-stab="risicoanalyse">🎲 Risicoanalyse</button>
+  </div>
+
+  <!-- Scenario A: nieuwe teams -->
+  <div id="stab-nieuwe-teams" class="stab-content active">
+    <h3>Simuleer nieuwe teams</h3>
+    <div class="form-row">
+      <label>Categorie <select id="sim-cat"></select></label>
+      <label>Aantal teams <input id="sim-count" type="number" min="1" max="20" value="1"></label>
+      <label>Voorkeursdagen
+        <div id="sim-days" class="day-check-group">
+          <label><input type="checkbox" value="MA"> MA</label>
+          <label><input type="checkbox" value="DI"> DI</label>
+          <label><input type="checkbox" value="WO" checked> WO</label>
+          <label><input type="checkbox" value="DO"> DO</label>
+          <label><input type="checkbox" value="VR"> VR</label>
+        </div>
+      </label>
+      <button class="btn-primary" id="btn-simulate">Simuleer</button>
+    </div>
+    <div id="sim-result" class="hidden">
+      <div class="sim-summary" id="sim-summary"></div>
+      <div id="sim-detail"></div>
+    </div>
+  </div>
+
+  <!-- Scenario B: nieuw veld -->
+  <div id="stab-nieuw-veld" class="stab-content hidden">
+    <div class="roi-layout">
+      <div class="roi-inputs">
+        <div class="section-label">Veldtype</div>
+        <div class="field-type-toggle">
+          <button class="ftype-btn active" id="ftype-gras">🌿 Natuurgras</button>
+          <button class="ftype-btn" id="ftype-kunst">⚫ Kunstgras</button>
+        </div>
+
+        <div class="section-label">Kosten</div>
+        <label>Aanlegkosten (€)<input class="roi-input" id="roi-aanleg" type="number" value="120000"></label>
+        <label>Onderhoud jaar 1–5 (€)<input class="roi-input" id="roi-onderhoud" type="number" value="12000"></label>
+        <label>Onderhoud escalatie jaar 6+ (%)<input class="roi-input" id="roi-escalatie" type="number" value="3" min="0" max="20"></label>
+        <label>Vervangingsreservering/jaar (€)<input class="roi-input" id="roi-reservering" type="number" value="0"></label>
+        <label>Beschikbaarheid veld (%)<input class="roi-input" id="roi-bezetting" type="number" value="70" min="10" max="100"></label>
+
+        <div class="section-label">Inkomsten</div>
+        <label>Contributie per speler/jaar (€)<input class="roi-input" id="roi-contributie" type="number" value="175"></label>
+        <label>Spelers per team<input class="roi-input" id="roi-spelers" type="number" value="14"></label>
+        <label>Groei nieuwe teams/jaar (%)<input class="roi-input" id="roi-groei" type="number" value="5"></label>
+        <label>Ledenbehoud per jaar (%)<input class="roi-input" id="roi-behoud" type="number" value="88" min="50" max="100"></label>
+
+        <div class="section-label">Financieringsstructuur</div>
+        <label>Gemeentelijke bijdrage
+          <div class="slider-row">
+            <input type="range" id="roi-gemeente-pct" min="0" max="80" value="40" class="roi-slider">
+            <span id="gemeente-pct-label">40%</span>
+          </div>
+        </label>
+        <div class="financing-cards">
+          <div class="fin-card"><div class="fin-lbl">Gemeente aandeel</div><div class="fin-val" id="fin-gemeente">—</div></div>
+          <div class="fin-card fin-club"><div class="fin-lbl">Club eigen bijdrage</div><div class="fin-val" id="fin-club">—</div></div>
+        </div>
+        <div class="min-teams-box">
+          <strong class="min-teams-num" id="min-teams-num">—</strong>
+          <span class="min-teams-txt"> minimaal benodigde teams om clubaandeel terug te verdienen</span>
+        </div>
+
+        <div class="section-label">Horizon</div>
+        <label>Projectiejaren<input class="roi-input" id="roi-jaren" type="number" value="10" min="3" max="15"></label>
+      </div>
+
+      <div class="roi-output">
+        <div class="section-label">10-jaar projectie</div>
+        <div id="roi-table-wrap"></div>
+        <canvas id="chart-roi" width="460" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario C: vergelijking -->
+  <div id="stab-vergelijking" class="stab-content hidden">
+    <h3>Vergelijkingsoverzicht</h3>
+    <p class="meta-text">Vergelijk de huidige situatie met een scenario (simuleer eerst nieuwe teams).</p>
+    <div id="vergelijk-wrap">
+      <div id="vergelijk-links" class="vergelijk-col">
+        <h4>Huidige situatie</h4>
+        <div id="verg-huidig"></div>
+      </div>
+      <div id="vergelijk-rechts" class="vergelijk-col">
+        <h4>Scenario: nieuwe teams</h4>
+        <div id="verg-scenario"></div>
+      </div>
+    </div>
+    <div class="avail-actions">
+      <button class="btn-secondary" id="btn-print">🖨 Afdrukken / PDF</button>
+    </div>
+  </div>
+
+  <!-- Scenario D: gevoeligheidsanalyse -->
+  <div id="stab-gevoeligheidsanalyse" class="stab-content hidden">
+    <p class="meta-text" style="margin-bottom:14px">Elke variabele ±20% t.o.v. basisscenario, één tegelijk. Gesorteerd op totale impact (grootste bovenaan).</p>
+    <div class="card-container">
+      <div class="section-label">Tornado — afwijking break-even jaar</div>
+      <canvas id="chart-tornado" width="680" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- Scenario E: risicoanalyse -->
+  <div id="stab-risicoanalyse" class="stab-content hidden">
+    <p class="meta-text" style="margin-bottom:14px">1.000 Monte Carlo simulaties — onderhoudskosten, ledenbehoud en gemeentelijke bijdrage variëren gelijktijdig (normaalverdeling, ±20% std&nbsp;dev).</p>
+    <div class="mc-metrics">
+      <div class="mc-card mc-teal">
+        <div class="mc-lbl">P10 break-even</div>
+        <div class="mc-val" id="mc-p10">—</div>
+        <div class="mc-sub">jaar</div>
+      </div>
+      <div class="mc-card mc-blue">
+        <div class="mc-lbl">P50 break-even</div>
+        <div class="mc-val" id="mc-p50">—</div>
+        <div class="mc-sub">jaar</div>
+      </div>
+      <div class="mc-card mc-coral">
+        <div class="mc-lbl">P90 break-even</div>
+        <div class="mc-val" id="mc-p90">—</div>
+        <div class="mc-sub">jaar</div>
+      </div>
+    </div>
+    <div class="mc-headline" id="mc-headline">—</div>
+    <div id="mc-verdict" class="mc-verdict"></div>
+    <div class="card-container" style="margin-top:16px">
+      <div class="section-label">Verdeling break-even jaar (1.000 runs)</div>
+      <canvas id="chart-mc" width="600" height="200"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
