@@ -10,8 +10,10 @@ Gebruik:
 
 import argparse
 import datetime
+import json
 import re
 from collections import defaultdict
+from pathlib import Path
 
 import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
@@ -87,7 +89,22 @@ def parse_tijd(s) -> datetime.time | None:
 
 
 # ---------------------------------------------------------------------------
-# DATA inlezen (versie 2 — geen voorkeuren per team)
+# Team-voorkeuren inlezen uit team_preferences.json
+# ---------------------------------------------------------------------------
+
+def _lees_team_prefs() -> dict:
+    prefs_pad = Path(__file__).parent / "team_preferences.json"
+    if not prefs_pad.exists():
+        return {}
+    try:
+        with open(prefs_pad, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+# ---------------------------------------------------------------------------
+# DATA inlezen (versie 2)
 # ---------------------------------------------------------------------------
 
 def lees_data(wb, sheet_name="DATA") -> list[dict]:
@@ -126,6 +143,15 @@ def lees_data(wb, sheet_name="DATA") -> list[dict]:
             "gebruik_override": float(gebruik_m.group(1)) if gebruik_m else None,
         }
         teams.append(team)
+
+    # Overlay met voorkeuren uit team_preferences.json
+    prefs = _lees_team_prefs()
+    for team in teams:
+        p = prefs.get(team["team_id"], {})
+        if p.get("voorkeur_dag"):
+            team["voorkeur_dag"] = p["voorkeur_dag"]
+        team["voorkeur_tijd"]    = parse_tijd(p["voorkeur_tijd"]) if p.get("voorkeur_tijd") else None
+        team["niet_beschikbaar"] = set(p.get("niet_beschikbaar", []))
 
     return teams
 
@@ -301,6 +327,12 @@ def score_v2(start_tijd: datetime.time, regels: dict, dag: str, grid: dict) -> f
     if start_min >= van_min:
         s += (start_min - van_min) / 60 * 0.15
 
+    # Per-team voorkeurstijdstip (zachte constraint via regels doorgegeven)
+    voorkeur_tijd = regels.get("voorkeur_tijd")
+    if voorkeur_tijd:
+        pref_min = voorkeur_tijd.hour * 60 + voorkeur_tijd.minute
+        s += abs(start_min - pref_min) / 60 * 2.0
+
     return s
 
 
@@ -422,6 +454,9 @@ def plan_alles(teams: list[dict], logica: dict) -> tuple[list[dict], list[dict]]
     def plan_team(team):
         regels = haal_regels(team, logica)
         bijz   = team["bijzonderheden"]
+        # Voorkeurstijdstip doorgeven aan scorefunctie via regels-dict
+        if team.get("voorkeur_tijd"):
+            regels = {**regels, "voorkeur_tijd": team["voorkeur_tijd"]}
 
         # Vast tijdstip: zet direct in grid op de opgegeven tijd en dag
         if "vast tijdstip" in bijz:
@@ -524,6 +559,12 @@ def plan_alles(teams: list[dict], logica: dict) -> tuple[list[dict], list[dict]]
             dag_volgorde = [voorkeur_dag] + [d for d in beschikbare_dagen if d != voorkeur_dag]
         else:
             dag_volgorde = beschikbare_dagen
+
+        # Niet-beschikbare dagen filteren (zachte constraint: fallback naar alle dagen)
+        niet_beschikbaar = team.get("niet_beschikbaar", set())
+        if niet_beschikbaar:
+            gefilterd = [d for d in dag_volgorde if d not in niet_beschikbaar]
+            dag_volgorde = gefilterd if gefilterd else dag_volgorde
 
         def _probeer_dag(dag: str) -> bool:
             nonlocal sessies_gepland

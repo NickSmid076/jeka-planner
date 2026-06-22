@@ -1004,6 +1004,8 @@ function initRoosterTab(sessies) {
     saveBar.innerHTML = `
       <button id="btn-rooster-undo" title="Ctrl+Z" disabled
               style="padding:5px 12px;font-size:12px;border:1px solid #ccc;border-radius:4px;background:#f5f5f5;cursor:pointer;color:#555">↩ Ongedaan</button>
+      <button id="btn-rooster-export"
+              style="padding:5px 12px;font-size:12px;border:1px solid #ccc;border-radius:4px;background:#f5f5f5;cursor:pointer;color:#555">↓ Excel</button>
       <button id="btn-rooster-save" class="btn-primary" style="display:none">Wijziging opslaan</button>
       <span id="rooster-save-status" style="font-size:12px;color:#555"></span>`;
     controls.parentElement.insertBefore(saveBar, controls.nextSibling);
@@ -1073,6 +1075,10 @@ function initRoosterTab(sessies) {
 
   document.getElementById('btn-rooster-undo').addEventListener('click', doUndo);
 
+  document.getElementById('btn-rooster-export').addEventListener('click', () => {
+    window.location = `/api/seasons/${_huidigSeizoen}/export-excel`;
+  });
+
   if (!window._undoKeyBound) {
     window._undoKeyBound = true;
     document.addEventListener('keydown', e => {
@@ -1115,7 +1121,8 @@ function initRoosterTab(sessies) {
 }
 
 // ── Teams tab ─────────────────────────────────────────────────────
-let teamsData = [];           // alle teams (incl. inactief) van /api/teams
+let teamsData  = [];           // alle teams (incl. inactief) van /api/teams
+let _teamPrefs = {};           // voorkeurs-instellingen per team_id
 let rosterSessies = [];       // ingeplande sessies van /api/roster
 let herplanNodig = false;
 
@@ -1233,6 +1240,29 @@ function initTeamsTab(sessies) {
       const labelTxt = team.actief ? 'Actief' : 'Inactief';
       const labelCls = team.actief ? 'on' : 'off';
 
+      const pref            = _teamPrefs[team.team_id] || {};
+      const prefDag         = pref.voorkeur_dag  || '';
+      const prefTijd        = pref.voorkeur_tijd || '';
+      const nietBeschikbaar = pref.niet_beschikbaar || [];
+      const dagOpties       = ['MA','DI','WO','DO','VR'];
+      const tijdOpties      = [];
+      for (let h = 16; h <= 22; h++) {
+        tijdOpties.push(`${String(h).padStart(2,'0')}:00`);
+        if (h < 22) tijdOpties.push(`${String(h).padStart(2,'0')}:30`);
+      }
+      const dagSelHTML = `<select class="pref-dag" style="font-size:12px;padding:3px 6px;border:1px solid #ccc;border-radius:4px">
+        <option value="">Geen voorkeur</option>
+        ${dagOpties.map(d => `<option value="${d}"${prefDag===d?' selected':''}>${d}</option>`).join('')}
+      </select>`;
+      const tijdSelHTML = `<select class="pref-tijd" style="font-size:12px;padding:3px 6px;border:1px solid #ccc;border-radius:4px">
+        <option value="">Geen voorkeur</option>
+        ${tijdOpties.map(t => `<option value="${t}"${prefTijd===t?' selected':''}>${t}</option>`).join('')}
+      </select>`;
+      const cbHTML = dagOpties.map(d =>
+        `<label style="font-size:12px;display:inline-flex;align-items:center;gap:3px;margin-right:8px">
+          <input type="checkbox" class="pref-niet" value="${d}"${nietBeschikbaar.includes(d)?' checked':''}> ${d}
+        </label>`).join('');
+
       return `<tr class="${trClass}" data-team-id="${escHtml(team.team_id)}">
         <td><strong>${escHtml(team.team_id)}</strong><br>
             <small style="color:#999">${escHtml(team.team_naam)}</small></td>
@@ -1246,6 +1276,28 @@ function initTeamsTab(sessies) {
             </label>
             <span class="toggle-label ${labelCls}">${labelTxt}</span>
           </div>
+          <button class="btn-pref-toggle" data-team="${escHtml(team.team_id)}"
+            style="margin-top:5px;font-size:11px;padding:2px 8px;border:1px solid #ccc;border-radius:4px;background:#f9f9f9;cursor:pointer;color:#555">⚙ Voorkeur</button>
+        </td>
+      </tr>
+      <tr class="pref-row" data-pref-for="${escHtml(team.team_id)}" style="display:none;background:#f5f7fa">
+        <td colspan="4" style="padding:12px 16px">
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end">
+            <div>
+              <label style="font-size:11px;color:#888;display:block;margin-bottom:3px">Voorkeurs&shy;dag</label>
+              ${dagSelHTML}
+            </div>
+            <div>
+              <label style="font-size:11px;color:#888;display:block;margin-bottom:3px">Voorkeurs&shy;tijdstip</label>
+              ${tijdSelHTML}
+            </div>
+            <div>
+              <label style="font-size:11px;color:#888;display:block;margin-bottom:4px">Niet beschikbaar</label>
+              <div>${cbHTML}</div>
+            </div>
+            <button class="btn-pref-save btn-primary" data-team="${escHtml(team.team_id)}"
+              style="font-size:12px;padding:5px 14px;align-self:flex-end">Opslaan</button>
+          </div>
         </td>
       </tr>`;
     }).join('');
@@ -1253,6 +1305,46 @@ function initTeamsTab(sessies) {
     // Toggle event listeners
     tbody.querySelectorAll('input[type=checkbox]').forEach(cb => {
       cb.addEventListener('change', () => toggleTeam(cb));
+    });
+
+    // ⚙ Voorkeur toggle
+    tbody.querySelectorAll('.btn-pref-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const teamId = btn.dataset.team;
+        const row = tbody.querySelector(`tr[data-pref-for="${CSS.escape(teamId)}"]`);
+        if (row) row.style.display = row.style.display === 'none' ? '' : 'none';
+      });
+    });
+
+    // Voorkeur opslaan
+    tbody.querySelectorAll('.btn-pref-save').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const teamId  = btn.dataset.team;
+        const prefRow = tbody.querySelector(`tr[data-pref-for="${CSS.escape(teamId)}"]`);
+        const dag     = prefRow.querySelector('.pref-dag').value;
+        const tijd    = prefRow.querySelector('.pref-tijd').value;
+        const niet    = [...prefRow.querySelectorAll('.pref-niet:checked')].map(c => c.value);
+
+        btn.disabled = true;
+        try {
+          const res = await fetch('/api/team-preferences', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ team_id: teamId, voorkeur_dag: dag, voorkeur_tijd: tijd, niet_beschikbaar: niet }),
+          });
+          const j = await res.json();
+          if (j.ok) {
+            _teamPrefs[teamId] = { voorkeur_dag: dag, voorkeur_tijd: tijd, niet_beschikbaar: niet };
+            showToast(`Voorkeur opgeslagen voor ${teamId}`, 'green');
+          } else {
+            showToast('Fout bij opslaan: ' + (j.detail || 'onbekend'), 'red');
+          }
+        } catch (e) {
+          showToast('Verbindingsfout: ' + e.message, 'red');
+        } finally {
+          btn.disabled = false;
+        }
+      });
     });
   }
 
@@ -1364,9 +1456,10 @@ function renderLogicaTab(catRegels) {
 // ── Load and render all data ──────────────────────────────────────
 async function loadAndRender() {
   try {
-    const [rosterResp, teamsResp] = await Promise.all([
+    const [rosterResp, teamsResp, prefsResp] = await Promise.all([
       fetch('/api/roster?t=' + Date.now()),
       fetch('/api/teams?t=' + Date.now()),
+      fetch('/api/team-preferences?t=' + Date.now()),
     ]);
 
     if (!rosterResp.ok) throw new Error(`Roster HTTP ${rosterResp.status}`);
@@ -1376,6 +1469,9 @@ async function loadAndRender() {
     if (teamsResp.ok) {
       const tj = await teamsResp.json();
       teamsData = tj.teams || [];
+    }
+    if (prefsResp.ok) {
+      _teamPrefs = await prefsResp.json();
     }
 
     // Standaardseizoen instellen bij initiële lading

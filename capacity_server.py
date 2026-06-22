@@ -6,6 +6,7 @@ Opent automatisch http://localhost:5051
 """
 
 import importlib.util
+import io
 import json
 import re
 import subprocess
@@ -22,6 +23,7 @@ BASE        = Path(__file__).parent
 APP_DIR     = BASE / "capacity_app"
 ROSTER      = BASE / "roster_export.json"
 EXCEL       = BASE / "Trainingschema planner v2.xlsx"
+PREFS_FILE  = BASE / "team_preferences.json"
 PLANNER_PY  = BASE.parent.parent / "JEKA" / "versie 2" / "planner_v2.py"
 SEASONS_DIR = BASE / "seasons"
 
@@ -255,6 +257,13 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/api/teams":
             self._json(lees_teams_excel())
 
+        elif path == "/api/team-preferences":
+            prefs = {}
+            if PREFS_FILE.exists():
+                with PREFS_FILE.open(encoding="utf-8") as f:
+                    prefs = json.load(f)
+            self._json(prefs)
+
         elif path == "/api/seasons":
             self._json({"seasons": _lees_seizoenen()})
 
@@ -265,6 +274,75 @@ class Handler(BaseHTTPRequestHandler):
                 self._file(fp, "application/json")
             else:
                 self.send_error(404, f"Seizoen '{slug}' niet gevonden")
+
+        elif re.match(r"^/api/seasons/[\w]+/export-excel$", path):
+            slug = path.split("/")[3]
+            fp   = SEASONS_DIR / f"{slug}.json"
+            if not fp.exists():
+                self.send_error(404, f"Seizoen '{slug}' niet gevonden")
+                return
+            if not EXCEL.exists():
+                self.send_error(503, "Excel-template niet beschikbaar op de server")
+                return
+            if _planner is None:
+                self.send_error(503, "Planner niet beschikbaar op de server")
+                return
+            try:
+                with fp.open(encoding="utf-8") as f:
+                    data = json.load(f)
+
+                DAG_LABELS = {"MA":"Maandag","DI":"Dinsdag","WO":"Woensdag","DO":"Donderdag","VR":"Vrijdag"}
+
+                # Converteer JSON-sessies naar formaat dat schrijf_rooster verwacht
+                sessies = []
+                for s in data.get("sessies", []):
+                    start_t = _planner.parse_tijd(s["start"])
+                    eind_t  = _planner.parse_tijd(s["eind"])
+                    if start_t is None or eind_t is None:
+                        continue
+                    start_slot = _planner.time_to_slot(start_t)
+                    n_slots    = _planner.time_to_slot(eind_t) - start_slot
+                    if n_slots <= 0:
+                        continue
+                    sessies.append({
+                        "team_id":     s["team_id"],
+                        "dag":         s["dag"],
+                        "dag_label":   DAG_LABELS.get(s["dag"], s["dag"]),
+                        "start":       start_t,
+                        "eind":        eind_t,
+                        "veld":        s["veld"],
+                        "subveld":     s.get("subveld", ""),
+                        "veldgebruik": s.get("veldgebruik", 0.5),
+                        "prioriteit":  s.get("prioriteit", "bijzonder"),
+                        "start_slot":  start_slot,
+                        "n_slots":     n_slots,
+                    })
+
+                niet_ingepland = [
+                    {"team_id": n["team_id"], "reden": n.get("reden", "")}
+                    for n in data.get("niet_ingepland", [])
+                ]
+
+                wb  = openpyxl.load_workbook(str(EXCEL))
+                _planner.schrijf_rooster(wb, sessies, niet_ingepland, "ROOSTER")
+
+                buf = io.BytesIO()
+                wb.save(buf)
+                xlsx_bytes = buf.getvalue()
+
+                filename = f"rooster_{slug}.xlsx"
+                self.send_response(200)
+                self.send_header("Content-Type",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                self.send_header("Content-Disposition",
+                    f'attachment; filename="{filename}"')
+                self.send_header("Content-Length", str(len(xlsx_bytes)))
+                self._cors()
+                self.end_headers()
+                self.wfile.write(xlsx_bytes)
+            except Exception as e:
+                import traceback; traceback.print_exc()
+                self.send_error(500, str(e))
 
         else:
             fp  = APP_DIR / path.lstrip("/")
@@ -280,15 +358,61 @@ class Handler(BaseHTTPRequestHandler):
 
         if self.path == "/api/refresh":
             try:
+                # Sla huidig rooster op voor fallback (teams die nu ingepland zijn)
+                oude_sessies = {}
+                if ROSTER.exists():
+                    with ROSTER.open(encoding="utf-8") as f:
+                        oud = json.load(f)
+                    for s in oud.get("sessies", []):
+                        oude_sessies.setdefault(s["team_id"], []).append(s)
+
                 r = subprocess.run(
                     [sys.executable, str(BASE / "planner_v2.py"), "--file", str(EXCEL)],
                     capture_output=True, text=True, cwd=str(BASE),
                 )
+
+                # Fallback: teams die voorheen ingepland waren maar nu niet meer → herstel
+                if r.returncode == 0 and ROSTER.exists() and oude_sessies:
+                    with ROSTER.open(encoding="utf-8") as f:
+                        nieuw = json.load(f)
+                    niet_ids = {n["team_id"] for n in nieuw.get("niet_ingepland", [])}
+                    herstel  = []
+                    for team_id in list(niet_ids):
+                        if team_id in oude_sessies:
+                            herstel.extend(oude_sessies[team_id])
+                            nieuw["niet_ingepland"] = [
+                                n for n in nieuw["niet_ingepland"] if n["team_id"] != team_id
+                            ]
+                    if herstel:
+                        nieuw["sessies"].extend(herstel)
+                        with ROSTER.open("w", encoding="utf-8") as f:
+                            json.dump(nieuw, f, ensure_ascii=False, indent=2)
+
                 self._json({
                     "ok":     r.returncode == 0,
                     "output": r.stdout[-3000:] if r.stdout else "",
                     "error":  r.stderr[-500:]  if r.stderr else "",
                 })
+            except Exception as e:
+                import traceback; traceback.print_exc()
+                self._json({"ok": False, "detail": str(e)})
+
+        elif self.path == "/api/team-preferences":
+            try:
+                payload  = json.loads(body)
+                team_id  = payload["team_id"]
+                prefs    = {}
+                if PREFS_FILE.exists():
+                    with PREFS_FILE.open(encoding="utf-8") as f:
+                        prefs = json.load(f)
+                prefs[team_id] = {
+                    "voorkeur_dag":  payload.get("voorkeur_dag") or None,
+                    "voorkeur_tijd": payload.get("voorkeur_tijd") or None,
+                    "niet_beschikbaar": payload.get("niet_beschikbaar", []),
+                }
+                with PREFS_FILE.open("w", encoding="utf-8") as f:
+                    json.dump(prefs, f, ensure_ascii=False, indent=2)
+                self._json({"ok": True, "team_id": team_id})
             except Exception as e:
                 import traceback; traceback.print_exc()
                 self._json({"ok": False, "detail": str(e)})
