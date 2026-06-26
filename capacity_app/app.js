@@ -927,12 +927,9 @@ function setupRoosterDrag(sessies, wrap, onchange) {
     if (!_rDrag) return;
     const { td, clone, startX, wrap: _wrap, idxs, sessies: _s, onchange: _oc } = _rDrag;
 
-    // Bepaal doelslot via positie t.o.v. tabel-top + gemeten rij-hoogte
-    const { tbodyTop, slotHeight } = _rDrag;
-    const origSlot  = parseInt(td.dataset.slot, 10);
-    const relY      = e.clientY - tbodyTop;
-    const targetSlot = Math.max(0, Math.min(N_SLOTS - 1, Math.floor(relY / slotHeight)));
-    const slotDelta = targetSlot - origSlot;
+    // Relatieve beweging t.o.v. klikpunt (zelfde principe als origineel, maar met gemeten rijhoogte)
+    const { startY, slotHeight } = _rDrag;
+    const slotDelta = Math.round((e.clientY - startY) / slotHeight);
     const colIdx    = _kolomVanX(e.clientX, _wrap);
     const newKolom  = _colSpec[colIdx];
     clone.remove();
