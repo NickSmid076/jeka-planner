@@ -901,7 +901,16 @@ function setupRoosterDrag(sessies, wrap, onchange) {
     document.body.appendChild(clone);
     td.style.opacity = '0.2';
 
-    _rDrag = { td, clone, rect, idxs, span, startY: e.clientY, startX: e.clientX, wrap, sessies, onchange };
+    // Meet echte slot-hoogte via de tijdkolom (heeft nooit rowspan)
+    const tbody = wrap.querySelector('tbody');
+    const tbodyTop = tbody ? tbody.getBoundingClientRect().top : 0;
+    const timeCells = tbody ? [...tbody.querySelectorAll('td.r-td-tijd')] : [];
+    const slotHeight = timeCells.length >= 2
+      ? timeCells[1].getBoundingClientRect().top - timeCells[0].getBoundingClientRect().top
+      : (timeCells.length === 1 ? timeCells[0].getBoundingClientRect().height : 20);
+
+    _rDrag = { td, clone, rect, idxs, span, startY: e.clientY, startX: e.clientX,
+               wrap, sessies, onchange, tbodyTop, slotHeight };
   };
   wrap.addEventListener('mousedown', wrap._rdHandler);
 
@@ -918,14 +927,11 @@ function setupRoosterDrag(sessies, wrap, onchange) {
     if (!_rDrag) return;
     const { td, clone, startX, wrap: _wrap, idxs, sessies: _s, onchange: _oc } = _rDrag;
 
-    // Bepaal het doelslot via de echte DOM-rijen (niet met vaste 20px-aanname)
-    const trs = [..._wrap.querySelectorAll('tbody tr')];
-    const origSlot = parseInt(td.dataset.slot, 10);
-    let targetSlot = origSlot;
-    for (let i = 0; i < trs.length; i++) {
-      const r = trs[i].getBoundingClientRect();
-      if (e.clientY >= r.top && e.clientY < r.bottom) { targetSlot = i; break; }
-    }
+    // Bepaal doelslot via positie t.o.v. tabel-top + gemeten rij-hoogte
+    const { tbodyTop, slotHeight } = _rDrag;
+    const origSlot  = parseInt(td.dataset.slot, 10);
+    const relY      = e.clientY - tbodyTop;
+    const targetSlot = Math.max(0, Math.min(N_SLOTS - 1, Math.floor(relY / slotHeight)));
     const slotDelta = targetSlot - origSlot;
     const colIdx    = _kolomVanX(e.clientX, _wrap);
     const newKolom  = _colSpec[colIdx];
