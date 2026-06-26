@@ -2069,6 +2069,15 @@
       "prioriteit": "bijzonder",
       "tijd_van": "19:00",
       "tijd_tot": "20:30"
+    },
+    "JO16": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "veldgebruik_2": null,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
     }
   },
   "stats": {

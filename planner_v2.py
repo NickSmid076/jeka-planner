@@ -200,12 +200,17 @@ def lees_logica(wb) -> dict:
             with open(overrides_pad, encoding="utf-8") as _f:
                 _overrides = json.load(_f)
             for _cat, _ovr in _overrides.items():
-                if _cat in logica["categorie_regels"]:
-                    _r = logica["categorie_regels"][_cat]
-                    if "duur_min"   in _ovr: _r["duur_min"]  = int(_ovr["duur_min"])
-                    if "prioriteit" in _ovr and _ovr["prioriteit"]: _r["prioriteit"] = _ovr["prioriteit"]
-                    if "tijd_van"   in _ovr and _ovr["tijd_van"]:  _r["tijd_van"]   = parse_tijd(_ovr["tijd_van"])
-                    if "tijd_tot"   in _ovr and _ovr["tijd_tot"]:  _r["tijd_tot"]   = parse_tijd(_ovr["tijd_tot"])
+                if _cat not in logica["categorie_regels"]:
+                    logica["categorie_regels"][_cat] = {
+                        "duur_min": 60, "veldgebruik": 0.5, "veldgebruik_2": None,
+                        "sessies": 2, "prioriteit": "bijzonder",
+                        "tijd_van": datetime.time(16, 0), "tijd_tot": datetime.time(22, 30),
+                    }
+                _r = logica["categorie_regels"][_cat]
+                if "duur_min"   in _ovr: _r["duur_min"]  = int(_ovr["duur_min"])
+                if "prioriteit" in _ovr and _ovr["prioriteit"]: _r["prioriteit"] = _ovr["prioriteit"]
+                if "tijd_van"   in _ovr and _ovr["tijd_van"]:  _r["tijd_van"]   = parse_tijd(_ovr["tijd_van"])
+                if "tijd_tot"   in _ovr and _ovr["tijd_tot"]:  _r["tijd_tot"]   = parse_tijd(_ovr["tijd_tot"])
         except Exception:
             pass
 
@@ -221,7 +226,7 @@ CATEGORIE_MAP = [
     (r"^JO9",  "JO9"),  (r"^JO10", "JO10"),
     (r"^JO11", "JO11"), (r"^JO12", "JO12"),
     (r"^JO13", "JO13"), (r"^JO14", "JO14"),
-    (r"^JO15", "JO15"), (r"^JO17", "JO17"),
+    (r"^JO15", "JO15"), (r"^JO16", "JO16"), (r"^JO17", "JO17"),
     (r"^JO19", "JO19"), (r"^MO13", "MO13"),
     (r"^MO15", "MO15"), (r"^MO17", "MO17"),
     (r"^MO20", "MO20"),
@@ -263,16 +268,6 @@ def haal_regels(team: dict, logica: dict) -> dict:
                 (d for n, d in cat_regels.items() if n.lower() in cat_data.lower()),
                 _default,
             )
-
-    # JO17 en JO19 niet-selectie (team-3+): 2e sessie op kwart veld
-    prio = regels.get("prioriteit", "")
-    if prio == "bovenbouw" and regels.get("veldgebruik_2") is None:
-        team_id_str = str(team.get("team_id", ""))
-        m_age = re.match(r"^[JM]O(\d+)", team_id_str, re.IGNORECASE)
-        if m_age and int(m_age.group(1)) in (17, 19):
-            m_num = re.search(r"-(\d+)$", team_id_str)
-            if m_num and int(m_num.group(1)) > 2:
-                regels = {**regels, "veldgebruik_2": 0.25}
 
     return regels
 
