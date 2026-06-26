@@ -246,45 +246,194 @@ def zet_team_actief(team_id, actief):
 
 def _genereer_excel(data: dict) -> bytes:
     from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-    DAG_LABELS   = {"MA": "Maandag", "DI": "Dinsdag", "WO": "Woensdag", "DO": "Donderdag", "VR": "Vrijdag"}
-    DAG_KLEUREN  = {"MA": "DDEEFF",  "DI": "DDFFDD",  "WO": "FFFFCC",   "DO": "FFE8CC",    "VR": "F0DDFF"}
-    DAG_VOLGORDE = ["MA", "DI", "WO", "DO", "VR"]
-    thin   = Side(style="thin", color="CCCCCC")
-    border = Border(left=thin, right=thin, top=thin, bottom=thin)
+    from openpyxl.utils import get_column_letter
+
+    DAGEN      = ["MA", "DI", "WO", "DO", "VR"]
+    DAG_LABELS = {"MA": "Maandag", "DI": "Dinsdag", "WO": "Woensdag",
+                  "DO": "Donderdag", "VR": "Vrijdag"}
+    SUBVELDEN  = ["Veld 6A", "Veld 6B", "Veld 7A", "Veld 7B",
+                  "Veld 1A", "Veld 1B", "Veld 2A", "Veld 2B"]
+    SUB_LABELS = ["V6A", "V6B", "V7A", "V7B", "V1A", "V1B", "V2A", "V2B"]
+    DAG_FILL   = ["E8F5E9", "E3F2FD", "FFF8E1", "F3E5F5", "FBE9E7"]
+
+    KLEUR_CAT = {
+        "onderbouw":         "AED6F1",
+        "middenbouw":        "A9DFBF",
+        "bovenbouw":         "F9E79F",
+        "senioren":          "F1948A",
+        "senioren-selectie": "E8A0A0",
+        "bijzonder":         "D7BDE2",
+    }
+    TEXT_CAT = {
+        "onderbouw":         "154360",
+        "middenbouw":        "145A32",
+        "bovenbouw":         "7D6608",
+        "senioren":          "641E16",
+        "senioren-selectie": "641E16",
+        "bijzonder":         "4A235A",
+    }
+
+    START_MIN = 960   # 16:00
+    STAP_MIN  = 15
+    N_SLOTS   = 26    # slot 0=16:00, slot 25=22:15 (eindigt 22:30)
+    N_SUB     = len(SUBVELDEN)
+    DATA_ROW  = 3     # rij 1=dag-headers, rij 2=subveld-labels, rij 3+ = tijdslots
+
+    def dag_col(dag_idx, sub_idx):
+        return 2 + dag_idx * N_SUB + sub_idx
+
+    def slot_tijd(slot):
+        m = START_MIN + slot * STAP_MIN
+        return f"{m // 60:02d}:{m % 60:02d}"
+
+    def parse_t(s):
+        h, m = map(int, s.split(":"))
+        return h * 60 + m
+
+    thin   = Side(style="thin",   color="DDDDDD")
+    medium = Side(style="medium", color="AAAAAA")
+    no_b   = Side(style=None)
 
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "Rooster"
+    ws.title = "Weekrooster"
 
-    headers    = ["Dag", "Veld", "Team", "Start", "Eind"]
-    col_widths = [12, 14, 22, 8, 8]
-    for c, (h, w) in enumerate(zip(headers, col_widths), start=1):
-        cell = ws.cell(row=1, column=c, value=h)
-        cell.font      = Font(bold=True, color="FFFFFF", size=11)
-        cell.fill      = PatternFill("solid", fgColor="1A252F")
-        cell.alignment = Alignment(horizontal="center")
-        cell.border    = border
-        ws.column_dimensions[cell.column_letter].width = w
-    ws.freeze_panes = "A2"
+    # Kolombreedte
+    ws.column_dimensions["A"].width = 6
+    for di in range(5):
+        for si in range(N_SUB):
+            ws.column_dimensions[get_column_letter(dag_col(di, si))].width = 11
 
-    sessies = sorted(
-        data.get("sessies", []),
-        key=lambda s: (DAG_VOLGORDE.index(s["dag"]) if s["dag"] in DAG_VOLGORDE else 99, s["start"])
-    )
-    for r, s in enumerate(sessies, start=2):
-        fill = PatternFill("solid", fgColor=DAG_KLEUREN.get(s["dag"], "FFFFFF"))
-        vals = [DAG_LABELS.get(s["dag"], s["dag"]), s["veld"], s["team_id"], s["start"], s["eind"]]
-        for c, v in enumerate(vals, start=1):
-            cell = ws.cell(row=r, column=c, value=v)
-            cell.fill      = fill
-            cell.border    = border
-            cell.alignment = Alignment(horizontal="center" if c in (1, 4, 5) else "left")
+    # Rijhoogtes
+    ws.row_dimensions[1].height = 22
+    ws.row_dimensions[2].height = 16
+    for sl in range(N_SLOTS):
+        ws.row_dimensions[DATA_ROW + sl].height = 16
 
+    # Rij 1: linkerbovencel
+    c = ws.cell(row=1, column=1, value="Tijd")
+    c.font = Font(bold=True, size=9, color="FFFFFF")
+    c.fill = PatternFill("solid", fgColor="1A252F")
+    c.alignment = Alignment(horizontal="center", vertical="center")
+    c.border = Border(left=thin, right=medium, top=thin, bottom=thin)
+
+    # Rij 1: dag-headers (samengevoegd per dag)
+    for di, dag in enumerate(DAGEN):
+        sc = dag_col(di, 0)
+        ec = dag_col(di, N_SUB - 1)
+        ws.merge_cells(start_row=1, start_column=sc, end_row=1, end_column=ec)
+        c = ws.cell(row=1, column=sc, value=DAG_LABELS[dag])
+        c.font      = Font(bold=True, size=12, color="1A252F")
+        c.fill      = PatternFill("solid", fgColor=DAG_FILL[di])
+        c.alignment = Alignment(horizontal="center", vertical="center")
+        c.border    = Border(left=medium, right=medium, top=thin, bottom=thin)
+
+    # Rij 2: subveld-labels
+    c = ws.cell(row=2, column=1)
+    c.fill   = PatternFill("solid", fgColor="1A252F")
+    c.border = Border(left=thin, right=medium, top=thin, bottom=thin)
+
+    for di in range(5):
+        fill = PatternFill("solid", fgColor=DAG_FILL[di])
+        for si, label in enumerate(SUB_LABELS):
+            col = dag_col(di, si)
+            c = ws.cell(row=2, column=col, value=label)
+            c.font      = Font(bold=True, size=8, color="555555")
+            c.fill      = fill
+            c.alignment = Alignment(horizontal="center", vertical="center")
+            c.border    = Border(
+                left=medium if si == 0 else thin,
+                right=medium if si == N_SUB - 1 else thin,
+                top=thin, bottom=thin,
+            )
+
+    # Datarijen: tijdlabels + lege achtergrond
+    for sl in range(N_SLOTS):
+        row     = DATA_ROW + sl
+        is_hour = (sl % 4 == 0)
+        is_half = (sl % 4 == 2)
+
+        c = ws.cell(row=row, column=1,
+                    value=slot_tijd(sl) if (is_hour or is_half) else None)
+        c.font      = Font(size=7 if is_half else 8, bold=is_hour, color="777777")
+        c.fill      = PatternFill("solid", fgColor="EAECEE" if is_hour else "F8F9FA")
+        c.alignment = Alignment(horizontal="right", vertical="top")
+        c.border    = Border(right=medium,
+                             top=Side(style="medium" if is_hour else "thin",
+                                      color="BBBBBB" if is_hour else "DDDDDD"),
+                             bottom=no_b, left=no_b)
+
+        for di in range(5):
+            bg = "F0F0F0" if is_hour else "FAFAFA"
+            fill = PatternFill("solid", fgColor=bg)
+            for si in range(N_SUB):
+                col = dag_col(di, si)
+                c = ws.cell(row=row, column=col)
+                c.fill   = fill
+                c.border = Border(
+                    left=medium if si == 0 else thin,
+                    right=medium if si == N_SUB - 1 else thin,
+                    top=Side(style="medium" if is_hour else "thin",
+                             color="CCCCCC" if is_hour else "EEEEEE"),
+                    bottom=no_b,
+                )
+
+    # Sessies plaatsen
+    dag_map = {d: i for i, d in enumerate(DAGEN)}
+    sub_map = {sv: i for i, sv in enumerate(SUBVELDEN)}
+    # Fallback: hoofdveld → eerste subveld
+    veld_fb = {}
+    for sv in SUBVELDEN:
+        hv = " ".join(sv.split()[:-1])  # "Veld 6A" → "Veld 6"
+        if hv not in veld_fb:
+            veld_fb[hv] = sv
+
+    for s in data.get("sessies", []):
+        dag = s.get("dag", "")
+        if dag not in dag_map:
+            continue
+        sv = s.get("subveld") or veld_fb.get(s.get("veld", ""), "")
+        if sv not in sub_map:
+            continue
+
+        start_sl = (parse_t(s["start"]) - START_MIN) // STAP_MIN
+        n_sl     = (parse_t(s["eind"])  - parse_t(s["start"])) // STAP_MIN
+        if start_sl < 0 or start_sl >= N_SLOTS or n_sl <= 0:
+            continue
+        n_sl = min(n_sl, N_SLOTS - start_sl)
+
+        col   = dag_col(dag_map[dag], sub_map[sv])
+        row_s = DATA_ROW + start_sl
+        row_e = row_s + n_sl - 1
+        prio  = s.get("prioriteit", "bijzonder")
+        si    = sub_map[sv]
+
+        if n_sl > 1:
+            ws.merge_cells(start_row=row_s, start_column=col,
+                           end_row=row_e,   end_column=col)
+
+        c = ws.cell(row=row_s, column=col)
+        c.value     = f"{s['team_id']}\n{s['start']}–{s['eind']}"
+        c.fill      = PatternFill("solid", fgColor=KLEUR_CAT.get(prio, "D7BDE2"))
+        c.font      = Font(bold=True, size=8, color=TEXT_CAT.get(prio, "4A235A"))
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        c.border    = Border(
+            left=medium if si == 0 else Side(style="thin", color="999999"),
+            right=medium if si == N_SUB - 1 else Side(style="thin", color="999999"),
+            top=medium, bottom=medium,
+        )
+
+    ws.freeze_panes = "B3"
+
+    # Sheet 2: Niet ingepland
     ws2 = wb.create_sheet("Niet ingepland")
+    ws2.column_dimensions["A"].width = 20
+    ws2.column_dimensions["B"].width = 45
     ws2.cell(row=1, column=1, value="Team").font  = Font(bold=True)
     ws2.cell(row=1, column=2, value="Reden").font = Font(bold=True)
     for r, n in enumerate(data.get("niet_ingepland", []), start=2):
-        ws2.cell(row=r, column=1, value=n.get("team_id", ""))
+        c1 = ws2.cell(row=r, column=1, value=n.get("team_id", ""))
+        c1.font = Font(color="C0392B", bold=True)
         ws2.cell(row=r, column=2, value=n.get("reden", ""))
 
     buf = io.BytesIO()
