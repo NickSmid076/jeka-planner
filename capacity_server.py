@@ -24,7 +24,7 @@ APP_DIR     = BASE / "capacity_app"
 ROSTER      = BASE / "roster_export.json"
 EXCEL       = BASE / "Trainingschema planner v2.xlsx"
 PREFS_FILE  = BASE / "team_preferences.json"
-PLANNER_PY  = BASE.parent.parent / "JEKA" / "versie 2" / "planner_v2.py"
+PLANNER_PY  = BASE / "planner_v2.py"
 SEASONS_DIR = BASE / "seasons"
 
 MIME = {".html": "text/html", ".css": "text/css", ".js": "application/javascript",
@@ -244,6 +244,54 @@ def zet_team_actief(team_id, actief):
         return {"ok": False, "error": str(e)}
 
 
+def _genereer_excel(data: dict) -> bytes:
+    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    DAG_LABELS   = {"MA": "Maandag", "DI": "Dinsdag", "WO": "Woensdag", "DO": "Donderdag", "VR": "Vrijdag"}
+    DAG_KLEUREN  = {"MA": "DDEEFF",  "DI": "DDFFDD",  "WO": "FFFFCC",   "DO": "FFE8CC",    "VR": "F0DDFF"}
+    DAG_VOLGORDE = ["MA", "DI", "WO", "DO", "VR"]
+    thin   = Side(style="thin", color="CCCCCC")
+    border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Rooster"
+
+    headers    = ["Dag", "Veld", "Team", "Start", "Eind"]
+    col_widths = [12, 14, 22, 8, 8]
+    for c, (h, w) in enumerate(zip(headers, col_widths), start=1):
+        cell = ws.cell(row=1, column=c, value=h)
+        cell.font      = Font(bold=True, color="FFFFFF", size=11)
+        cell.fill      = PatternFill("solid", fgColor="1A252F")
+        cell.alignment = Alignment(horizontal="center")
+        cell.border    = border
+        ws.column_dimensions[cell.column_letter].width = w
+    ws.freeze_panes = "A2"
+
+    sessies = sorted(
+        data.get("sessies", []),
+        key=lambda s: (DAG_VOLGORDE.index(s["dag"]) if s["dag"] in DAG_VOLGORDE else 99, s["start"])
+    )
+    for r, s in enumerate(sessies, start=2):
+        fill = PatternFill("solid", fgColor=DAG_KLEUREN.get(s["dag"], "FFFFFF"))
+        vals = [DAG_LABELS.get(s["dag"], s["dag"]), s["veld"], s["team_id"], s["start"], s["eind"]]
+        for c, v in enumerate(vals, start=1):
+            cell = ws.cell(row=r, column=c, value=v)
+            cell.fill      = fill
+            cell.border    = border
+            cell.alignment = Alignment(horizontal="center" if c in (1, 4, 5) else "left")
+
+    ws2 = wb.create_sheet("Niet ingepland")
+    ws2.cell(row=1, column=1, value="Team").font  = Font(bold=True)
+    ws2.cell(row=1, column=2, value="Reden").font = Font(bold=True)
+    for r, n in enumerate(data.get("niet_ingepland", []), start=2):
+        ws2.cell(row=r, column=1, value=n.get("team_id", ""))
+        ws2.cell(row=r, column=2, value=n.get("reden", ""))
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    return buf.getvalue()
+
+
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split("?")[0]
@@ -281,61 +329,15 @@ class Handler(BaseHTTPRequestHandler):
             if not fp.exists():
                 self.send_error(404, f"Seizoen '{slug}' niet gevonden")
                 return
-            if not EXCEL.exists():
-                self.send_error(503, "Excel-template niet beschikbaar op de server")
-                return
-            if _planner is None:
-                self.send_error(503, "Planner niet beschikbaar op de server")
-                return
             try:
                 with fp.open(encoding="utf-8") as f:
                     data = json.load(f)
-
-                DAG_LABELS = {"MA":"Maandag","DI":"Dinsdag","WO":"Woensdag","DO":"Donderdag","VR":"Vrijdag"}
-
-                # Converteer JSON-sessies naar formaat dat schrijf_rooster verwacht
-                sessies = []
-                for s in data.get("sessies", []):
-                    start_t = _planner.parse_tijd(s["start"])
-                    eind_t  = _planner.parse_tijd(s["eind"])
-                    if start_t is None or eind_t is None:
-                        continue
-                    start_slot = _planner.time_to_slot(start_t)
-                    n_slots    = _planner.time_to_slot(eind_t) - start_slot
-                    if n_slots <= 0:
-                        continue
-                    sessies.append({
-                        "team_id":     s["team_id"],
-                        "dag":         s["dag"],
-                        "dag_label":   DAG_LABELS.get(s["dag"], s["dag"]),
-                        "start":       start_t,
-                        "eind":        eind_t,
-                        "veld":        s["veld"],
-                        "subveld":     s.get("subveld", ""),
-                        "veldgebruik": s.get("veldgebruik", 0.5),
-                        "prioriteit":  s.get("prioriteit", "bijzonder"),
-                        "start_slot":  start_slot,
-                        "n_slots":     n_slots,
-                    })
-
-                niet_ingepland = [
-                    {"team_id": n["team_id"], "reden": n.get("reden", "")}
-                    for n in data.get("niet_ingepland", [])
-                ]
-
-                wb  = openpyxl.load_workbook(str(EXCEL))
-                _planner.schrijf_rooster(wb, sessies, niet_ingepland, "ROOSTER")
-
-                buf = io.BytesIO()
-                wb.save(buf)
-                xlsx_bytes = buf.getvalue()
-
-                filename = f"rooster_{slug}.xlsx"
+                xlsx_bytes = _genereer_excel(data)
                 self.send_response(200)
                 self.send_header("Content-Type",
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 self.send_header("Content-Disposition",
-                    f'attachment; filename="{filename}"')
+                    f'attachment; filename="rooster_{slug}.xlsx"')
                 self.send_header("Content-Length", str(len(xlsx_bytes)))
                 self._cors()
                 self.end_headers()
