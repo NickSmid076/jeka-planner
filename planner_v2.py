@@ -202,12 +202,10 @@ def lees_logica(wb) -> dict:
             for _cat, _ovr in _overrides.items():
                 if _cat in logica["categorie_regels"]:
                     _r = logica["categorie_regels"][_cat]
-                    if "duur_min" in _ovr:
-                        _r["duur_min"] = int(_ovr["duur_min"])
-                    if "tijd_van" in _ovr and _ovr["tijd_van"]:
-                        _r["tijd_van"] = parse_tijd(_ovr["tijd_van"])
-                    if "tijd_tot" in _ovr and _ovr["tijd_tot"]:
-                        _r["tijd_tot"] = parse_tijd(_ovr["tijd_tot"])
+                    if "duur_min"   in _ovr: _r["duur_min"]  = int(_ovr["duur_min"])
+                    if "prioriteit" in _ovr and _ovr["prioriteit"]: _r["prioriteit"] = _ovr["prioriteit"]
+                    if "tijd_van"   in _ovr and _ovr["tijd_van"]:  _r["tijd_van"]   = parse_tijd(_ovr["tijd_van"])
+                    if "tijd_tot"   in _ovr and _ovr["tijd_tot"]:  _r["tijd_tot"]   = parse_tijd(_ovr["tijd_tot"])
         except Exception:
             pass
 

@@ -1439,14 +1439,21 @@ function renderLogicaTab(catRegels) {
     const bi = prio_volgorde.indexOf(b.prioriteit ?? '');
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
+  const PRIO_OPTIES = ['bijzonder','onderbouw','middenbouw','senioren-selectie','bovenbouw','senioren'];
   tbody.innerHTML = gesorteerd.map(([cat, r]) => {
-    const kleur = PRIO_CHIP_COLORS[r.prioriteit] || '#777';
-    const label = PRIO_LABELS[r.prioriteit] || r.prioriteit || '—';
+    const prioSel = PRIO_OPTIES.map(p =>
+      `<option value="${p}"${r.prioriteit === p ? ' selected' : ''}>${PRIO_LABELS[p] || p}</option>`
+    ).join('');
     return `<tr data-cat="${escHtml(cat)}">
       <td><strong>${escHtml(cat)}</strong></td>
-      <td><span class="prio-chip" style="background:${kleur}">${escHtml(label)}</span></td>
+      <td>
+        <select class="lc-prio"
+          style="font-size:12px;padding:3px 5px;border:1px solid #ccc;border-radius:4px;max-width:130px">
+          ${prioSel}
+        </select>
+      </td>
       <td style="text-align:center">${r.sessies ?? '—'}</td>
-      <td style="text-align:center">
+      <td style="text-align:center;white-space:nowrap">
         <input type="number" class="lc-duur" min="15" max="180" step="15"
           value="${r.duur_min ?? 60}"
           style="width:58px;text-align:center;padding:3px 4px;border:1px solid #ccc;border-radius:4px;font-size:12px"> min
@@ -1471,6 +1478,7 @@ function renderLogicaTab(catRegels) {
     if (!btn) return;
     const row     = btn.closest('tr');
     const cat     = btn.dataset.cat;
+    const prio    = row.querySelector('.lc-prio').value;
     const duur    = parseInt(row.querySelector('.lc-duur').value);
     const tijdVan = row.querySelector('.lc-van').value;
     const tijdTot = row.querySelector('.lc-tot').value;
@@ -1479,7 +1487,7 @@ function renderLogicaTab(catRegels) {
       const res = await fetch('/api/logica-regels', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cat, duur_min: duur, tijd_van: tijdVan, tijd_tot: tijdTot }),
+        body: JSON.stringify({ cat, prioriteit: prio, duur_min: duur, tijd_van: tijdVan, tijd_tot: tijdTot }),
       });
       const j = await res.json();
       if (j.ok) showToast(`Regel opgeslagen voor ${cat}. Klik ↻ Herplan om toe te passen.`, 'green');

@@ -561,6 +561,20 @@ class Handler(BaseHTTPRequestHandler):
                         with ROSTER.open("w", encoding="utf-8") as f:
                             json.dump(nieuw, f, ensure_ascii=False, indent=2)
 
+                # Kopieer roster_export.json ook naar het juiste seizoensbestand
+                if r.returncode == 0 and ROSTER.exists():
+                    try:
+                        with ROSTER.open(encoding="utf-8") as f:
+                            roster_data = json.load(f)
+                        seizoen = roster_data.get("seizoen", "")
+                        if seizoen:
+                            slug = seizoen.replace("/", "_").replace(" ", "").strip()
+                            season_fp = SEASONS_DIR / f"{slug}.json"
+                            with season_fp.open("w", encoding="utf-8") as f:
+                                json.dump(roster_data, f, ensure_ascii=False, indent=2)
+                    except Exception:
+                        pass
+
                 self._json({
                     "ok":     r.returncode == 0,
                     "output": r.stdout[-3000:] if r.stdout else "",
@@ -599,9 +613,10 @@ class Handler(BaseHTTPRequestHandler):
                     with LOGICA_OVERRIDES.open(encoding="utf-8") as f:
                         ovrs = json.load(f)
                 entry = ovrs.get(cat, {})
-                if "duur_min"  in payload: entry["duur_min"]  = int(payload["duur_min"])
-                if "tijd_van"  in payload: entry["tijd_van"]  = payload["tijd_van"]
-                if "tijd_tot"  in payload: entry["tijd_tot"]  = payload["tijd_tot"]
+                if "duur_min"   in payload: entry["duur_min"]   = int(payload["duur_min"])
+                if "prioriteit" in payload: entry["prioriteit"] = payload["prioriteit"]
+                if "tijd_van"   in payload: entry["tijd_van"]   = payload["tijd_van"]
+                if "tijd_tot"   in payload: entry["tijd_tot"]   = payload["tijd_tot"]
                 ovrs[cat] = entry
                 with LOGICA_OVERRIDES.open("w", encoding="utf-8") as f:
                     json.dump(ovrs, f, ensure_ascii=False, indent=2)
