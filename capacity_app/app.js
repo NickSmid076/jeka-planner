@@ -916,8 +916,17 @@ function setupRoosterDrag(sessies, wrap, onchange) {
 
   document.addEventListener('mouseup', e => {
     if (!_rDrag) return;
-    const { td, clone, startY, startX, wrap: _wrap, idxs, sessies: _s, onchange: _oc } = _rDrag;
-    const slotDelta = Math.round((e.clientY - startY) / 20);  // 20px per slot
+    const { td, clone, startX, wrap: _wrap, idxs, sessies: _s, onchange: _oc } = _rDrag;
+
+    // Bepaal het doelslot via de echte DOM-rijen (niet met vaste 20px-aanname)
+    const trs = [..._wrap.querySelectorAll('tbody tr')];
+    const origSlot = parseInt(td.dataset.slot, 10);
+    let targetSlot = origSlot;
+    for (let i = 0; i < trs.length; i++) {
+      const r = trs[i].getBoundingClientRect();
+      if (e.clientY >= r.top && e.clientY < r.bottom) { targetSlot = i; break; }
+    }
+    const slotDelta = targetSlot - origSlot;
     const colIdx    = _kolomVanX(e.clientX, _wrap);
     const newKolom  = _colSpec[colIdx];
     clone.remove();
