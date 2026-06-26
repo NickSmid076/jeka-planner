@@ -23,7 +23,8 @@ BASE        = Path(__file__).parent
 APP_DIR     = BASE / "capacity_app"
 ROSTER      = BASE / "roster_export.json"
 EXCEL       = BASE / "Trainingschema planner v2.xlsx"
-PREFS_FILE  = BASE / "team_preferences.json"
+PREFS_FILE       = BASE / "team_preferences.json"
+LOGICA_OVERRIDES = BASE / "logica_overrides.json"
 PLANNER_PY  = BASE / "planner_v2.py"
 SEASONS_DIR = BASE / "seasons"
 
@@ -461,6 +462,27 @@ class Handler(BaseHTTPRequestHandler):
                     prefs = json.load(f)
             self._json(prefs)
 
+        elif path == "/api/logica-regels":
+            # Basisregels uit roster_export.json, overlaid met logica_overrides.json
+            base = {}
+            if ROSTER.exists():
+                try:
+                    with ROSTER.open(encoding="utf-8") as f:
+                        base = json.load(f).get("categorie_regels", {})
+                except Exception:
+                    pass
+            overrides = {}
+            if LOGICA_OVERRIDES.exists():
+                try:
+                    with LOGICA_OVERRIDES.open(encoding="utf-8") as f:
+                        overrides = json.load(f)
+                except Exception:
+                    pass
+            merged = {}
+            for cat, regels in base.items():
+                merged[cat] = {**regels, **(overrides.get(cat) or {})}
+            self._json(merged)
+
         elif path == "/api/seasons":
             self._json({"seasons": _lees_seizoenen()})
 
@@ -564,6 +586,26 @@ class Handler(BaseHTTPRequestHandler):
                 with PREFS_FILE.open("w", encoding="utf-8") as f:
                     json.dump(prefs, f, ensure_ascii=False, indent=2)
                 self._json({"ok": True, "team_id": team_id})
+            except Exception as e:
+                import traceback; traceback.print_exc()
+                self._json({"ok": False, "detail": str(e)})
+
+        elif self.path == "/api/logica-regels":
+            try:
+                payload = json.loads(body)
+                cat     = payload["cat"]
+                ovrs    = {}
+                if LOGICA_OVERRIDES.exists():
+                    with LOGICA_OVERRIDES.open(encoding="utf-8") as f:
+                        ovrs = json.load(f)
+                entry = ovrs.get(cat, {})
+                if "duur_min"  in payload: entry["duur_min"]  = int(payload["duur_min"])
+                if "tijd_van"  in payload: entry["tijd_van"]  = payload["tijd_van"]
+                if "tijd_tot"  in payload: entry["tijd_tot"]  = payload["tijd_tot"]
+                ovrs[cat] = entry
+                with LOGICA_OVERRIDES.open("w", encoding="utf-8") as f:
+                    json.dump(ovrs, f, ensure_ascii=False, indent=2)
+                self._json({"ok": True, "cat": cat})
             except Exception as e:
                 import traceback; traceback.print_exc()
                 self._json({"ok": False, "detail": str(e)})

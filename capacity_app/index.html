@@ -342,8 +342,6 @@
           <li><span class="rule-bullet">▸</span> Max <strong>1,0 veldgebruik</strong> per veld per tijdslot van 15 min</li>
           <li><span class="rule-bullet">▸</span> <strong>Subvelden</strong> (A/B/C/D) worden automatisch toegewezen na de planning</li>
           <li><span class="rule-bullet">▸</span> <strong>Veld 2</strong> — alleen voor onderbouw, sessie eindigt vóór 19:00</li>
-          <li><span class="rule-bullet">▸</span> <strong>2e sessie</strong> JO17/JO19 niet-selectie: kwart veld (0,25 vg) bij capaciteitstekort</li>
-          <li><span class="rule-bullet">▸</span> <strong>2e sessie senioren</strong>: kwart veld (0,25 vg), gepland ná alle andere teams</li>
         </ul>
       </div>
     </div>
@@ -362,11 +360,10 @@
         <tr><td><code>dag:XX</code></td><td><code>dag:di</code></td><td>Voorkeur voor deze dag (MA/DI/WO/DO/VR)</td></tr>
         <tr><td><code>veld:N</code></td><td><code>veld:6</code></td><td>Voorkeur voor Veld N</td></tr>
         <tr><td><code>duur:N</code></td><td><code>duur:90</code></td><td>Sessieduur overschrijven (minuten)</td></tr>
-        <tr><td><code>gebruik:X</code></td><td><code>gebruik:0.25</code></td><td>Veldgebruik overschrijven (0.25 / 0.5 / 1.0)</td></tr>
+        <tr><td><code>gebruik:X</code></td><td><code>gebruik:0.5</code></td><td>Veldgebruik overschrijven (0.5 / 1.0)</td></tr>
         <tr><td><code>vast tijdstip</code></td><td><code>vast tijdstip vr 19:00</code></td><td>Hoogste prioriteit — direct op exacte dag &amp; tijd ingepland</td></tr>
         <tr><td><code>bi-wekelijks</code></td><td><code>bi-wekelijks</code></td><td>Slechts 1 sessie per 2 weken (in plaats van categorie-standaard)</td></tr>
         <tr><td><code>schaduwtraining</code></td><td><code>schaduwtraining Heren-1</code></td><td>Kopieert tijdslot van het genoemde hoofdteam exact</td></tr>
-        <tr><td><code>kwart</code></td><td><code>kwart veld</code></td><td>Veldgebruik 0,25 (kwart veld)</td></tr>
         <tr><td><code>half</code></td><td><code>half veld</code></td><td>Veldgebruik 0,5 (half veld)</td></tr>
       </tbody>
     </table>
@@ -386,6 +383,7 @@
             <th>Duur (min)</th>
             <th>Veldgebruik</th>
             <th>Tijdvenster</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="logica-cat-tbody">

@@ -193,6 +193,24 @@ def lees_logica(wb) -> dict:
                     "tijd_tot":     parse_tijd(rec.get("Tijd_tot")),
                 }
 
+    # Overlay met logica_overrides.json (UI-aanpassingen)
+    overrides_pad = Path(__file__).parent / "logica_overrides.json"
+    if overrides_pad.exists():
+        try:
+            with open(overrides_pad, encoding="utf-8") as _f:
+                _overrides = json.load(_f)
+            for _cat, _ovr in _overrides.items():
+                if _cat in logica["categorie_regels"]:
+                    _r = logica["categorie_regels"][_cat]
+                    if "duur_min" in _ovr:
+                        _r["duur_min"] = int(_ovr["duur_min"])
+                    if "tijd_van" in _ovr and _ovr["tijd_van"]:
+                        _r["tijd_van"] = parse_tijd(_ovr["tijd_van"])
+                    if "tijd_tot" in _ovr and _ovr["tijd_tot"]:
+                        _r["tijd_tot"] = parse_tijd(_ovr["tijd_tot"])
+        except Exception:
+            pass
+
     return logica
 
 

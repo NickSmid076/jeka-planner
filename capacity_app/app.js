@@ -607,7 +607,7 @@ function initVrijeSlotsTab(data, grid) {
     tbody.innerHTML = rows.map(r => {
       const ruimte = r.freePct >= 100 ? '<span class="pill pill-ok">heel veld</span>'
         : r.freePct >= 50  ? '<span class="pill pill-ok">halve groep</span>'
-        : r.freePct >= 25  ? '<span class="pill pill-info">kwart veld</span>'
+        : r.freePct >= 25  ? '<span class="pill pill-info">deel vrij</span>'
         : '<span class="pill pill-warn">klein deel</span>';
       return `<tr>
         <td>${DAG_LABELS[r.dag]}</td>
@@ -1430,7 +1430,7 @@ function renderLogicaTab(catRegels) {
   const tbody = document.getElementById('logica-cat-tbody');
   if (!tbody) return;
   if (!catRegels || !Object.keys(catRegels).length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Geen categorieregels beschikbaar (vereist roster_export.json met categorie_regels)</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Geen categorieregels beschikbaar (vereist roster_export.json met categorie_regels)</td></tr>';
     return;
   }
   const prio_volgorde = ['bijzonder','onderbouw','middenbouw','senioren-selectie','bovenbouw','senioren'];
@@ -1442,24 +1442,64 @@ function renderLogicaTab(catRegels) {
   tbody.innerHTML = gesorteerd.map(([cat, r]) => {
     const kleur = PRIO_CHIP_COLORS[r.prioriteit] || '#777';
     const label = PRIO_LABELS[r.prioriteit] || r.prioriteit || '—';
-    return `<tr>
+    return `<tr data-cat="${escHtml(cat)}">
       <td><strong>${escHtml(cat)}</strong></td>
       <td><span class="prio-chip" style="background:${kleur}">${escHtml(label)}</span></td>
       <td style="text-align:center">${r.sessies ?? '—'}</td>
-      <td style="text-align:center">${r.duur_min ?? '—'} min</td>
+      <td style="text-align:center">
+        <input type="number" class="lc-duur" min="15" max="180" step="15"
+          value="${r.duur_min ?? 60}"
+          style="width:58px;text-align:center;padding:3px 4px;border:1px solid #ccc;border-radius:4px;font-size:12px"> min
+      </td>
       <td style="text-align:center">${r.veldgebruik != null ? r.veldgebruik.toFixed(2) : '—'}</td>
-      <td style="text-align:center">${escHtml(r.tijd_van || '16:00')} – ${escHtml(r.tijd_tot || '22:30')}</td>
+      <td style="text-align:center;white-space:nowrap">
+        <input type="time" class="lc-van" value="${escHtml(r.tijd_van || '16:00')}"
+          style="padding:2px 4px;border:1px solid #ccc;border-radius:4px;font-size:12px">
+        –
+        <input type="time" class="lc-tot" value="${escHtml(r.tijd_tot || '22:30')}"
+          style="padding:2px 4px;border:1px solid #ccc;border-radius:4px;font-size:12px">
+      </td>
+      <td>
+        <button class="lc-save btn-primary" data-cat="${escHtml(cat)}"
+          style="font-size:11px;padding:3px 10px;white-space:nowrap">Opslaan</button>
+      </td>
     </tr>`;
   }).join('');
+
+  tbody.addEventListener('click', async e => {
+    const btn = e.target.closest('.lc-save');
+    if (!btn) return;
+    const row     = btn.closest('tr');
+    const cat     = btn.dataset.cat;
+    const duur    = parseInt(row.querySelector('.lc-duur').value);
+    const tijdVan = row.querySelector('.lc-van').value;
+    const tijdTot = row.querySelector('.lc-tot').value;
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/logica-regels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cat, duur_min: duur, tijd_van: tijdVan, tijd_tot: tijdTot }),
+      });
+      const j = await res.json();
+      if (j.ok) showToast(`Regel opgeslagen voor ${cat}. Klik ↻ Herplan om toe te passen.`, 'green');
+      else showToast('Fout: ' + (j.detail || 'onbekend'), 'red');
+    } catch (err) {
+      showToast('Verbindingsfout: ' + err.message, 'red');
+    } finally {
+      btn.disabled = false;
+    }
+  }, { once: false });
 }
 
 // ── Load and render all data ──────────────────────────────────────
 async function loadAndRender() {
   try {
-    const [rosterResp, teamsResp, prefsResp] = await Promise.all([
+    const [rosterResp, teamsResp, prefsResp, logicaResp] = await Promise.all([
       fetch('/api/roster?t=' + Date.now()),
       fetch('/api/teams?t=' + Date.now()),
       fetch('/api/team-preferences?t=' + Date.now()),
+      fetch('/api/logica-regels?t=' + Date.now()),
     ]);
 
     if (!rosterResp.ok) throw new Error(`Roster HTTP ${rosterResp.status}`);
@@ -1495,7 +1535,8 @@ async function loadAndRender() {
     initVrijeSlotsTab(data, grid);
     renderCriteriaCheck(data);
     initTeamsTab(data.sessies || []);
-    renderLogicaTab(data.categorie_regels || {});
+    const logicaRegels = logicaResp.ok ? await logicaResp.json() : (data.categorie_regels || {});
+    renderLogicaTab(logicaRegels);
 
     return { data, grid };
   } catch (e) {
