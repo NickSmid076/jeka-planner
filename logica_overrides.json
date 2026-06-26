@@ -1,9 +1,9 @@
 {
   "JO16": {
-    "duur_min": 90,
+    "duur_min": 75,
     "prioriteit": "bovenbouw",
-    "tijd_van": "19:30",
-    "tijd_tot": "21:00"
+    "tijd_van": "16:30",
+    "tijd_tot": "20:30"
   },
   "JO17": {
     "duur_min": 75
