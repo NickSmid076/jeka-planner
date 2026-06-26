@@ -1568,7 +1568,11 @@ document.addEventListener('DOMContentLoaded', () => {
     this.textContent = '↻ Bezig…';
     showToast('Rooster wordt opnieuw gegenereerd…');
     try {
-      const r = await fetch('/api/refresh', { method: 'POST' });
+      const r = await fetch('/api/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seizoen: _huidigSeizoen }),
+      });
       const j = await r.json();
       if (j.ok) {
         showToast('Rooster bijgewerkt!', 'green');

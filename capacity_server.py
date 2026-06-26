@@ -71,7 +71,7 @@ _LOGICA_CAT = {
     # Jongens — rechtstreeks in LOGICA
     "JO7": "JO7", "JO8": "JO8", "JO9": "JO9", "JO10": "JO10", "JO11": "JO11",
     "JO12": "JO12", "JO13": "JO13", "JO14": "JO14", "JO15": "JO15",
-    "JO16": "JO17", "JO17": "JO17",
+    "JO16": "JO16", "JO17": "JO17",
     "JO18": "JO19", "JO19": "JO19",
     # Jongens bovenbouw extra (gebruik senioren-regels)
     "JO21": "Senioren", "JO23": "Senioren",
@@ -531,6 +531,13 @@ class Handler(BaseHTTPRequestHandler):
 
         if self.path == "/api/refresh":
             try:
+                # Lees seizoen-slug uit POST body (verstuurd door de frontend)
+                _refresh_seizoen_slug = None
+                try:
+                    _refresh_seizoen_slug = json.loads(body).get("seizoen") if body else None
+                except Exception:
+                    pass
+
                 # Sla huidig rooster op voor fallback (teams die nu ingepland zijn)
                 oude_sessies = {}
                 if ROSTER.exists():
@@ -561,14 +568,22 @@ class Handler(BaseHTTPRequestHandler):
                         with ROSTER.open("w", encoding="utf-8") as f:
                             json.dump(nieuw, f, ensure_ascii=False, indent=2)
 
-                # Kopieer roster_export.json ook naar het juiste seizoensbestand
+                # Kopieer roster_export.json naar het juiste seizoensbestand
                 if r.returncode == 0 and ROSTER.exists():
                     try:
                         with ROSTER.open(encoding="utf-8") as f:
                             roster_data = json.load(f)
-                        seizoen = roster_data.get("seizoen", "")
-                        if seizoen:
-                            slug = seizoen.replace("/", "_").replace(" ", "").strip()
+                        # Bepaal slug: uit POST body, dan uit roster seizoen-veld, dan meest recente seizoensbestand
+                        slug = _refresh_seizoen_slug
+                        if not slug:
+                            seizoen = roster_data.get("seizoen", "")
+                            if seizoen:
+                                slug = seizoen.replace("/", "_").replace(" ", "").strip()
+                        if not slug:
+                            season_files = list(SEASONS_DIR.glob("*.json"))
+                            if season_files:
+                                slug = max(season_files, key=lambda p: p.stat().st_mtime).stem
+                        if slug:
                             season_fp = SEASONS_DIR / f"{slug}.json"
                             with season_fp.open("w", encoding="utf-8") as f:
                                 json.dump(roster_data, f, ensure_ascii=False, indent=2)

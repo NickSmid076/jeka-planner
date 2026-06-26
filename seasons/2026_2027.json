@@ -1,55 +1,76 @@
 {
-  "seizoen": "2026/2027",
-  "generated_at": "2026-06-21T21:01:55.706382+00:00",
+  "generated_at": "2026-06-26T13:54:37.041889",
   "sessies": [
     {
-      "team_id": "4SKILLS-1",
+      "team_id": "Vaders-1",
       "dag": "VR",
       "dag_label": "Vrijdag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 1,
-      "prioriteit": "bijzonder"
-    },
-    {
-      "team_id": "4SKILLS-2",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "17:00",
-      "eind": "18:15",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bijzonder"
-    },
-    {
-      "team_id": "4SKILLS-3",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "18:15",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bijzonder"
-    },
-    {
-      "team_id": "G-teams-1",
-      "dag": "WO",
-      "dag_label": "Maandag",
       "start": "19:00",
       "eind": "20:00",
       "veld": "Veld 7",
       "subveld": "Veld 7A",
+      "veldgebruik": 0.25,
+      "prioriteit": "bijzonder"
+    },
+    {
+      "team_id": "G-1",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "19:00",
+      "eind": "20:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
       "veldgebruik": 0.5,
       "prioriteit": "bijzonder"
     },
     {
-      "team_id": "Keeperstraining-1",
+      "team_id": "Keeperstraining",
       "dag": "DI",
       "dag_label": "Dinsdag",
+      "start": "17:45",
+      "eind": "19:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1C",
+      "veldgebruik": 0.0,
+      "prioriteit": "bijzonder"
+    },
+    {
+      "team_id": "4SKILLS",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bijzonder"
+    },
+    {
+      "team_id": "KT-avond",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "19:00",
+      "eind": "20:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.0,
+      "prioriteit": "bijzonder"
+    },
+    {
+      "team_id": "KT-vrijdag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "18:30",
+      "eind": "19:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.0,
+      "prioriteit": "bijzonder"
+    },
+    {
+      "team_id": "JO23-1",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -59,8 +80,8 @@
     },
     {
       "team_id": "JO7-1",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -70,8 +91,8 @@
     },
     {
       "team_id": "JO7-2",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -103,8 +124,8 @@
     },
     {
       "team_id": "JO7-5",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -114,8 +135,8 @@
     },
     {
       "team_id": "JO7-6",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -125,8 +146,8 @@
     },
     {
       "team_id": "JO7-7",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -146,9 +167,9 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO8-1",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "team_id": "JO7-9",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
@@ -157,7 +178,7 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO8-2",
+      "team_id": "JO7-10",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "16:00",
@@ -168,40 +189,18 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO8-3",
+      "team_id": "JO8-1",
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 6",
-      "subveld": "Veld 6C",
-      "veldgebruik": 0.25,
-      "prioriteit": "onderbouw"
-    },
-    {
-      "team_id": "JO8-4",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 6",
       "subveld": "Veld 6D",
       "veldgebruik": 0.25,
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO8-5",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6D",
-      "veldgebruik": 0.25,
-      "prioriteit": "onderbouw"
-    },
-    {
-      "team_id": "JO8-6",
+      "team_id": "JO8-2",
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "16:00",
@@ -212,9 +211,53 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO8-7",
+      "team_id": "JO8-3",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6D",
+      "veldgebruik": 0.25,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO8-4",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6C",
+      "veldgebruik": 0.25,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO8-5",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.25,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO8-6",
       "dag": "WO",
       "dag_label": "Woensdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.25,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO8-7",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 7",
@@ -224,39 +267,28 @@
     },
     {
       "team_id": "JO8-8",
-      "dag": "DO",
-      "dag_label": "Donderdag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "veld": "Veld 6",
+      "subveld": "Veld 6D",
       "veldgebruik": 0.25,
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO9-1",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "onderbouw"
-    },
-    {
-      "team_id": "JO9-2",
+      "team_id": "JO8-9",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 7",
       "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
+      "veldgebruik": 0.25,
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO9-3",
+      "team_id": "JO9-1",
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "16:00",
@@ -267,9 +299,31 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO9-4",
+      "team_id": "JO9-2",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO9-3",
       "dag": "WO",
       "dag_label": "Woensdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO9-4",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 7",
@@ -279,23 +333,23 @@
     },
     {
       "team_id": "JO9-5",
-      "dag": "DO",
-      "dag_label": "Donderdag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 7",
-      "subveld": "Veld 7B",
+      "subveld": "Veld 7A",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
       "team_id": "JO9-6",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
+      "veld": "Veld 7",
+      "subveld": "Veld 7C",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
@@ -305,8 +359,8 @@
       "dag_label": "Woensdag",
       "start": "16:00",
       "eind": "17:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
@@ -323,6 +377,17 @@
     },
     {
       "team_id": "JO9-9",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO10-1",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "16:00",
@@ -333,9 +398,9 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO10-1",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "team_id": "JO10-2",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 1",
@@ -344,20 +409,9 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO10-2",
+      "team_id": "JO10-3",
       "dag": "DI",
       "dag_label": "Dinsdag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 2",
-      "subveld": "Veld 2A",
-      "veldgebruik": 0.5,
-      "prioriteit": "onderbouw"
-    },
-    {
-      "team_id": "JO10-3",
-      "dag": "WO",
-      "dag_label": "Woensdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 1",
@@ -367,6 +421,17 @@
     },
     {
       "team_id": "JO10-4",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO10-5",
       "dag": "DO",
       "dag_label": "Donderdag",
       "start": "16:00",
@@ -377,31 +442,20 @@
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO10-5",
+      "team_id": "JO10-6",
       "dag": "VR",
       "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "onderbouw"
-    },
-    {
-      "team_id": "JO10-6",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "16:00",
-      "eind": "17:00",
       "veld": "Veld 1",
-      "subveld": "Veld 1B",
+      "subveld": "Veld 1A",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
       "team_id": "JO10-7",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -411,8 +465,41 @@
     },
     {
       "team_id": "JO10-8",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO10-9",
       "dag": "DO",
       "dag_label": "Donderdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 2",
+      "subveld": "Veld 2A",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO10-10",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "onderbouw"
+    },
+    {
+      "team_id": "JO10-11",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -422,30 +509,30 @@
     },
     {
       "team_id": "JO11-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "16:00",
       "eind": "17:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
+      "veld": "Veld 2",
+      "subveld": "Veld 2B",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
       "team_id": "JO11-2",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "16:00",
-      "eind": "17:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
       "team_id": "JO11-3",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "dag": "WO",
+      "dag_label": "Woensdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -455,8 +542,8 @@
     },
     {
       "team_id": "JO11-4",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -466,19 +553,19 @@
     },
     {
       "team_id": "JO11-5",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
-      "subveld": "Veld 2B",
+      "subveld": "Veld 2A",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
       "team_id": "JO11-6",
-      "dag": "DO",
-      "dag_label": "Donderdag",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -488,8 +575,8 @@
     },
     {
       "team_id": "JO11-7",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "dag": "WO",
+      "dag_label": "Woensdag",
       "start": "16:00",
       "eind": "17:00",
       "veld": "Veld 2",
@@ -499,8 +586,8 @@
     },
     {
       "team_id": "JO11-8",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 6",
@@ -510,61 +597,17 @@
     },
     {
       "team_id": "JO11-9",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "16:00",
+      "eind": "17:00",
+      "veld": "Veld 2",
+      "subveld": "Veld 2B",
       "veldgebruik": 0.5,
       "prioriteit": "onderbouw"
     },
     {
-      "team_id": "JO13-1",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO13-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO13-2",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO13-2",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO13-3",
+      "team_id": "JO12-1 ",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "17:00",
@@ -575,9 +618,20 @@
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "JO13-3",
+      "team_id": "JO13-1",
       "dag": "DI",
       "dag_label": "Dinsdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO13-1",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 6",
@@ -592,12 +646,23 @@
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 6",
-      "subveld": "Veld 6B",
+      "subveld": "Veld 6A",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
       "team_id": "JO13-4",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO13-5",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "17:00",
@@ -609,19 +674,19 @@
     },
     {
       "team_id": "JO13-5",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "WO",
+      "dag_label": "Woensdag",
       "start": "17:00",
       "eind": "18:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "JO13-5",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "team_id": "JO13-6",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 7",
@@ -641,13 +706,13 @@
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "JO13-6",
+      "team_id": "JO13-7",
       "dag": "VR",
       "dag_label": "Vrijdag",
       "start": "17:00",
       "eind": "18:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
@@ -659,24 +724,13 @@
       "eind": "18:00",
       "veld": "Veld 7",
       "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO13-7",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
       "team_id": "JO13-8",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 7",
@@ -697,17 +751,28 @@
     },
     {
       "team_id": "JO13-9",
-      "dag": "DO",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
       "team_id": "JO13-9",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO13-10",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "17:00",
@@ -719,6 +784,17 @@
     },
     {
       "team_id": "JO13-10",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO13-1",
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "17:00",
@@ -729,9 +805,53 @@
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "JO13-10",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "team_id": "MO13-1",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO13-2",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO13-2",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO13-3",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO13-3",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 1",
@@ -741,8 +861,8 @@
     },
     {
       "team_id": "JO14-1",
-      "dag": "DO",
-      "dag_label": "Donderdag",
+      "dag": "WO",
+      "dag_label": "Woensdag",
       "start": "17:00",
       "eind": "18:00",
       "veld": "Veld 1",
@@ -756,68 +876,13 @@
       "dag_label": "Vrijdag",
       "start": "17:00",
       "eind": "18:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO14-2",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO14-2",
-      "dag": "DO",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO14-3",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "17:00",
-      "eind": "18:00",
       "veld": "Veld 1",
       "subveld": "Veld 1A",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "JO14-3",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO14-4",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "17:00",
-      "eind": "18:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO14-4",
+      "team_id": "JO15-1",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "17:00",
@@ -829,30 +894,19 @@
     },
     {
       "team_id": "JO15-1",
-      "dag": "MA",
-      "dag_label": "Dinsdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO15-1",
       "dag": "WO",
       "dag_label": "Woensdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
       "team_id": "JO15-2",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "18:00",
       "eind": "19:00",
       "veld": "Veld 6",
@@ -867,36 +921,14 @@
       "start": "18:00",
       "eind": "19:00",
       "veld": "Veld 6",
-      "subveld": "Veld 6B",
+      "subveld": "Veld 6A",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
       "team_id": "JO15-3",
       "dag": "DI",
-      "dag_label": "Donderdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "JO15-3",
-      "dag": "DO",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "middenbouw"
-    },
-    {
-      "team_id": "MO13-1",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "dag_label": "Dinsdag",
       "start": "18:00",
       "eind": "19:00",
       "veld": "Veld 6",
@@ -905,29 +937,51 @@
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "MO13-1",
-      "dag": "WO",
+      "team_id": "JO15-3",
+      "dag": "DO",
       "dag_label": "Donderdag",
       "start": "18:00",
       "eind": "19:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "MO15-1",
-      "dag": "DO",
+      "team_id": "JO15-4",
+      "dag": "VR",
       "dag_label": "Vrijdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-4",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
       "start": "18:00",
       "eind": "19:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "MO15-1",
+      "team_id": "JO15-5",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-5",
       "dag": "MA",
       "dag_label": "Maandag",
       "start": "18:00",
@@ -938,9 +992,119 @@
       "prioriteit": "middenbouw"
     },
     {
-      "team_id": "MO15-2",
-      "dag": "DO",
+      "team_id": "JO15-6",
+      "dag": "VR",
       "dag_label": "Vrijdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-6",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-7",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-7",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-8",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-8",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-9",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO15-9",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO15-1",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO15-1",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "18:00",
+      "eind": "19:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "MO15-2",
+      "dag": "WO",
+      "dag_label": "Woensdag",
       "start": "18:00",
       "eind": "19:00",
       "veld": "Veld 7",
@@ -950,12 +1114,12 @@
     },
     {
       "team_id": "MO15-2",
-      "dag": "MA",
-      "dag_label": "Maandag",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "18:00",
       "eind": "19:00",
       "veld": "Veld 7",
-      "subveld": "Veld 7A",
+      "subveld": "Veld 7B",
       "veldgebruik": 0.5,
       "prioriteit": "middenbouw"
     },
@@ -964,7 +1128,7 @@
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "19:00",
-      "eind": "21:00",
+      "eind": "20:30",
       "veld": "Veld 6",
       "subveld": "Veld 6A",
       "veldgebruik": 0.5,
@@ -986,7 +1150,7 @@
       "dag": "DI",
       "dag_label": "Dinsdag",
       "start": "19:00",
-      "eind": "21:00",
+      "eind": "20:30",
       "veld": "Veld 6",
       "subveld": "Veld 6B",
       "veldgebruik": 0.5,
@@ -1005,8 +1169,19 @@
     },
     {
       "team_id": "Dames-1",
-      "dag": "WO",
-      "dag_label": "Woensdag",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "19:00",
+      "eind": "20:30",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "senioren-selectie"
+    },
+    {
+      "team_id": "Dames-1",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
       "start": "19:00",
       "eind": "20:30",
       "veld": "Veld 6",
@@ -1015,711 +1190,859 @@
       "prioriteit": "senioren-selectie"
     },
     {
-      "team_id": "Dames-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
+      "team_id": "JO16-1",
+      "dag": "MA",
+      "dag_label": "Maandag",
       "start": "19:30",
       "eind": "21:00",
       "veld": "Veld 6",
       "subveld": "Veld 6A",
       "veldgebruik": 0.5,
-      "prioriteit": "senioren-selectie"
+      "prioriteit": "bovenbouw"
     },
     {
-      "team_id": "JO23-1",
-      "dag": "DI",
+      "team_id": "JO16-1",
+      "dag": "WO",
       "dag_label": "Woensdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-2",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-2",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-3",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-3",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-4",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-4",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-5",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-5",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-6",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-6",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-7",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-7",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-8",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-8",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-9",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-9",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-10",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-10",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-11",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1C",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-11",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "19:30",
+      "eind": "21:00",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-12",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-12",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "20:00",
+      "eind": "21:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-13",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "20:00",
+      "eind": "21:30",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-13",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "20:30",
+      "eind": "22:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-14",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "20:30",
+      "eind": "22:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-14",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-15",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO16-15",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "20:30",
+      "eind": "22:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-1",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "20:30",
+      "eind": "21:45",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-1",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "20:30",
+      "eind": "21:45",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-2",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "20:30",
+      "eind": "21:45",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-2",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-3",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-3",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-4",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 6",
+      "subveld": "Veld 6B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-4",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-5",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-5",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-6",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-6",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-7",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-7",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 7",
+      "subveld": "Veld 7B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-8",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO17-8",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "21:00",
+      "eind": "22:15",
+      "veld": "Veld 1",
+      "subveld": "Veld 1A",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "MO17-1",
+      "dag": "DO",
+      "dag_label": "Donderdag",
       "start": "21:00",
       "eind": "22:30",
       "veld": "Veld 1",
       "subveld": "Veld 1A",
       "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "MO17-1",
+      "dag": "MA",
+      "dag_label": "Maandag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO19-1",
+      "dag": "WO",
+      "dag_label": "Woensdag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO19-1",
+      "dag": "VR",
+      "dag_label": "Vrijdag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO19-2",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO19-2",
+      "dag": "DO",
+      "dag_label": "Donderdag",
+      "start": "21:00",
+      "eind": "22:30",
+      "veld": "Veld 1",
+      "subveld": "Veld 1B",
+      "veldgebruik": 0.5,
+      "prioriteit": "bovenbouw"
+    },
+    {
+      "team_id": "JO13-2",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6C",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    },
+    {
+      "team_id": "JO13-3",
+      "dag": "DI",
+      "dag_label": "Dinsdag",
+      "start": "17:00",
+      "eind": "18:00",
+      "veld": "Veld 6",
+      "subveld": "Veld 6D",
+      "veldgebruik": 0.5,
+      "prioriteit": "middenbouw"
+    }
+  ],
+  "niet_ingepland": [
+    {
+      "team_id": "JO19-3",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "JO19-4",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "JO19-5",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "JO19-6",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "JO19-7",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "JO19-8",
+      "reden": "Slechts 0/2 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-3",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-4",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-5",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-6",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-7",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-8",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-9",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-10",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-11",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-12",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-13",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-14",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-15",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-16",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
-    },
-    {
-      "team_id": "Heren-17",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Heren-18",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
+    },
+    {
+      "team_id": "Heren-19",
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     },
     {
       "team_id": "Dames-2",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
-    },
-    {
-      "team_id": "Vaders-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "senioren"
-    },
-    {
-      "team_id": "JO16-1",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-2",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-3",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-4",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-5",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-1",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-2",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-3",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-4",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-5",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-1",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-2",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-3",
-      "dag": "VR",
-      "dag_label": "Donderdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-4",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-5",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-6",
-      "dag": "DO",
-      "dag_label": "Woensdag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-7",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-8",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "MO20-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-1",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-2",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-3",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-4",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO16-5",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-1",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-2",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-3",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-4",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO17-5",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-1",
-      "dag": "WO",
-      "dag_label": "Woensdag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-2",
-      "dag": "DO",
-      "dag_label": "Donderdag",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-3",
-      "dag": "DI",
-      "dag_label": "Dinsdag",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-4",
-      "dag": "VR",
-      "dag_label": "Vrijdag",
-      "start": "18:00",
-      "eind": "19:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-5",
-      "dag": "MA",
-      "dag_label": "Maandag",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 7",
-      "subveld": "Veld 7B",
-      "veldgebruik": 0.5,
-      "prioriteit": "bovenbouw"
-    },
-    {
-      "team_id": "JO19-7",
-      "dag": "MA",
-      "start": "19:00",
-      "eind": "20:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "JO19-8",
-      "dag": "WO",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 6",
-      "subveld": "Veld 6A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "JO19-6",
-      "dag": "DI",
-      "start": "19:30",
-      "eind": "21:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "MO20-1",
-      "dag": "DO",
-      "start": "20:30",
-      "eind": "22:00",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Keeperstraining-2",
-      "dag": "DI",
-      "start": "18:00",
-      "eind": "20:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Extra-Middenbouw-WO",
-      "dag": "WO",
-      "start": "18:00",
-      "eind": "19:00",
-      "veld": "Veld 7",
-      "subveld": "Veld 7A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Extra-Senioren-WO-1",
-      "dag": "WO",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Extra-Senioren-WO-2",
-      "dag": "WO",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Heren-1",
-      "dag": "VR",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1A",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Heren-2",
-      "dag": "VR",
-      "start": "21:00",
-      "eind": "22:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Keepersschool-1",
-      "dag": "VR",
-      "start": "18:30",
-      "eind": "19:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
-    },
-    {
-      "team_id": "Extra-Senioren-VR-1",
-      "dag": "VR",
-      "start": "19:30",
-      "eind": "20:30",
-      "veld": "Veld 1",
-      "subveld": "Veld 1B",
-      "veldgebruik": 0.5
+      "reden": "Slechts 0/1 sessies ingepland — onvoldoende veldcapaciteit"
     }
   ],
-  "niet_ingepland": [],
+  "categorie_regels": {
+    "JO7": {
+      "duur_min": 60,
+      "veldgebruik": 0.25,
+      "sessies": 1,
+      "prioriteit": "onderbouw",
+      "tijd_van": "16:00",
+      "tijd_tot": "19:00"
+    },
+    "JO8": {
+      "duur_min": 60,
+      "veldgebruik": 0.25,
+      "sessies": 1,
+      "prioriteit": "onderbouw",
+      "tijd_van": "16:00",
+      "tijd_tot": "19:00"
+    },
+    "JO9": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "onderbouw",
+      "tijd_van": "16:00",
+      "tijd_tot": "19:00"
+    },
+    "JO10": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "onderbouw",
+      "tijd_van": "16:00",
+      "tijd_tot": "19:00"
+    },
+    "JO11": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "onderbouw",
+      "tijd_van": "16:00",
+      "tijd_tot": "20:30"
+    },
+    "JO12": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "middenbouw",
+      "tijd_van": "17:00",
+      "tijd_tot": "21:00"
+    },
+    "JO13": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "middenbouw",
+      "tijd_van": "17:00",
+      "tijd_tot": "21:00"
+    },
+    "JO14": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "middenbouw",
+      "tijd_van": "16:30",
+      "tijd_tot": "21:00"
+    },
+    "JO15": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "middenbouw",
+      "tijd_van": "16:30",
+      "tijd_tot": "19:30"
+    },
+    "MO13": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "middenbouw",
+      "tijd_van": "16:30",
+      "tijd_tot": "21:00"
+    },
+    "MO15": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "middenbouw",
+      "tijd_van": "16:30",
+      "tijd_tot": "19:30"
+    },
+    "JO17": {
+      "duur_min": 75,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
+    },
+    "JO19": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
+    },
+    "MO17": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
+    },
+    "MO20": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
+    },
+    "Senioren": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "senioren",
+      "tijd_van": "20:30",
+      "tijd_tot": "22:30"
+    },
+    "Senioren-selectie": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "senioren-selectie",
+      "tijd_van": "19:00",
+      "tijd_tot": "21:00"
+    },
+    "Bijzonder": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "bijzonder",
+      "tijd_van": "16:00",
+      "tijd_tot": "22:30"
+    },
+    "Gehandicapt": {
+      "duur_min": 60,
+      "veldgebruik": 0.5,
+      "sessies": 1,
+      "prioriteit": "bijzonder",
+      "tijd_van": "19:00",
+      "tijd_tot": "20:30"
+    },
+    "JO16": {
+      "duur_min": 90,
+      "veldgebruik": 0.5,
+      "sessies": 2,
+      "prioriteit": "bovenbouw",
+      "tijd_van": "19:30",
+      "tijd_tot": "21:00"
+    }
+  },
   "stats": {
-    "totaal_ingepland": 146,
-    "totaal_niet_ingepland": 4
-  }
+    "totaal_ingepland": 162,
+    "totaal_niet_ingepland": 23
+  },
+  "seizoen": "2026/2027"
 }
